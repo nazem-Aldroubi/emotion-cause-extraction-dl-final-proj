@@ -4,6 +4,7 @@ import numpy as np
 import operator
 from collections import defaultdict
 import re
+from random import shuffle
 import string
 
 ##########DO NOT CHANGE#####################
@@ -67,7 +68,7 @@ def extract_clauses_and_labels(text, emotion_seeds):
             for c_clause in cause_clauses:
                 emotion_cause_pairs.append((e_clause, c_clause))
 
-    return document_clauses, emotion_labels, cause_labels, emotion_cause_pairs
+    return np.array(document_clauses), np.array(emotion_labels), np.array(cause_labels), emotion_cause_pairs
 
 def clean_clause(clause):
     clause = re.sub('<[^<]+>', "", clause)
@@ -226,15 +227,22 @@ def is_complete(emotion_seeds, sentences):
             emotion_seeds_complete = False
     return emotion_seeds_complete
 
-def convert_to_id(vocab, sentences):
+def convert_clauses_to_id(vocab, clauses):
     """
-    Convert sentences to indexed 
+    Convert clauses to indices
 
     :param vocab:  dictionary, word --> unique index
-    :param sentences:  list of lists of words, each representing padded sentence
-    :return: numpy array of integers, with each row representing the word indeces in the corresponding sentences
+    :param clauses:  list of lists of words, each representing a padded clause
+    :return: numpy array of integers, with each row representing the word indices in the corresponding clauses
     """
-    return np.stack([[vocab[word] if word in vocab else vocab[UNK_TOKEN] for word in sentence] for sentence in sentences])
+    return np.stack([[vocab[word] if word in vocab else vocab[UNK_TOKEN] for word in clause] for clause in clauses])
+
+def pad_and_convert_pairs_to_id(vocab, emotion_cause_pairs, padding_size):
+    for i in range(len(emotion_cause_pairs)):
+        pair = emotion_cause_pairs[i]
+        pair = pad_corpus(pair, padding_size)
+        emotion_cause_pairs[i] = convert_clauses_to_id(vocab, pair)
+
 
 ################### BUILD VOCAB ########################
 
@@ -245,7 +253,7 @@ def get_data(file_name):
 
     sentences = clean_sentences(text)
 
-    vocab, pad_index = build_vocab(sentences)
+    word2id, pad_index = build_vocab(sentences)
 
     emotion_seeds = set(["ashamed", "delighted", "pleased", "concerned", "delight", "happy", "embarrassed", "furious", "nervous", 
                      "miffed", "angry", "mad", "anger", "excitement", "horror", "resentful", "astonished", "revulsion", 
@@ -260,24 +268,36 @@ def get_data(file_name):
                      "glum", "downcast", "griefstricken", "startled"])
     
     assert is_complete(emotion_seeds, sentences)
+    
+    shuffle(text)
+    train_split = 0.9
+    num_sentences = len(text)
+    num_train_sentences = int(train_split*num_sentences)
+    train_text = text[:num_train_sentences]
+    test_text = text[num_train_sentences:]
+    
+    train_clauses, train_emotion_labels, train_cause_labels, train_emotion_cause_pairs = extract_clauses_and_labels(train_text, emotion_seeds)
+    test_clauses, test_emotion_labels, test_cause_labels, test_emotion_cause_pairs = extract_clauses_and_labels(test_text, emotion_seeds)
 
-    clauses, emotion_labels, cause_labels, emotion_cause_pairs = extract_clauses_and_labels(text, emotion_seeds)
+    padding_size = max(get_padding_size(train_clauses), get_padding_size(test_clauses)) + 1
 
-    clauses = np.array(clauses)
-    emotion_labels = np.array(emotion_labels)
-    cause_labels = np.array(cause_labels)
+    train_clauses = pad_corpus(train_clauses, padding_size)
+    train_clauses = convert_clauses_to_id(word2id, train_clauses)
 
-    clauses = pad_clauses(clauses)
-    clauses = convert_to_id(vocab, clauses)
+    test_clauses = pad_corpus(test_clauses, padding_size)
+    test_clauses = convert_clauses_to_id(word2id, test_clauses)
 
-    for i in range(len(emotion_cause_pairs)):
-        pair = emotion_cause_pairs[i]
-        pair = pad_clauses(pair)
-        emotion_cause_pairs[i] = convert_to_id(vocab, pair)
+    pad_and_convert_pairs_to_id(word2id, train_emotion_cause_pairs, padding_size)
+    pad_and_convert_pairs_to_id(word2id, test_emotion_cause_pairs, padding_size)
 
-    return clauses, emotion_labels, cause_labels, emotion_cause_pairs, pad_index
+    return train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
+           train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
+           test_emotion_cause_pairs, pad_index
 
 ################## MAIN INTERFACES #####################
 
 if __name__ == "__main__":
-    clauses, emotion_labels, cause_labels, emotion_cause_pairs, pad_index = get_data("data.txt")
+    train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
+    train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
+    test_emotion_cause_pairs, pad_index = get_data("data.txt")
+
