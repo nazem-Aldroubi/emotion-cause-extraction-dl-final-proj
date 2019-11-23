@@ -30,9 +30,13 @@ def extract_clauses_and_labels(text, emotion_seeds):
     document_clauses = []
     emotion_labels = []
     cause_labels = []
+    
+    emotion_cause_pairs = []
 
     for i, line in enumerate(text):
         clauses = re.split("[.,!;:]+", line)
+        emotion_clauses = []
+        cause_clauses = []
 
         for clause in clauses:
             cleaned_clause = clean_clause(clause)
@@ -45,6 +49,7 @@ def extract_clauses_and_labels(text, emotion_seeds):
 
             if "<cause>" in clause:
                 cause_labels.append(1)
+                cause_clauses.append(clause_words)
             else:
                 cause_labels.append(0)
             
@@ -52,12 +57,17 @@ def extract_clauses_and_labels(text, emotion_seeds):
             for word in clause_words:
                 if word.lower() in emotion_seeds:
                     emotion_labels.append(1)
+                    emotion_clauses.append(clause_words) 
                     has_seed = True
                     break
             if not has_seed:
                 emotion_labels.append(0)
 
-    return document_clauses, emotion_labels, cause_labels
+        for e_clause in emotion_clauses:
+            for c_clause in cause_clauses:
+                emotion_cause_pairs.append((e_clause, c_clause))
+
+    return document_clauses, emotion_labels, cause_labels, emotion_cause_pairs
 
 def clean_clause(clause):
     clause = re.sub('<[^<]+>', "", clause)
@@ -251,7 +261,7 @@ def get_data(file_name):
     
     assert is_complete(emotion_seeds, sentences)
 
-    clauses, emotion_labels, cause_labels = extract_clauses_and_labels(text, emotion_seeds)
+    clauses, emotion_labels, cause_labels, emotion_cause_pairs = extract_clauses_and_labels(text, emotion_seeds)
 
     clauses = np.array(clauses)
     emotion_labels = np.array(emotion_labels)
@@ -260,9 +270,14 @@ def get_data(file_name):
     clauses = pad_clauses(clauses)
     clauses = convert_to_id(vocab, clauses)
 
-    return clauses, emotion_labels, cause_labels, pad_index
+    for i in range(len(emotion_cause_pairs)):
+        pair = emotion_cause_pairs[i]
+        pair = pad_clauses(pair)
+        emotion_cause_pairs[i] = convert_to_id(vocab, pair)
+
+    return clauses, emotion_labels, cause_labels, emotion_cause_pairs, pad_index
 
 ################## MAIN INTERFACES #####################
 
 if __name__ == "__main__":
-    clauses, emotion_labels, cause_labels, pad_index = get_data("data.txt")
+    clauses, emotion_labels, cause_labels, emotion_cause_pairs, pad_index = get_data("data.txt")
