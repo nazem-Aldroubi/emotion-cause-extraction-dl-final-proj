@@ -1,6 +1,8 @@
 import numpy as np
 import tensorflow as tf
 import numpy as np
+import operator
+from collections import defaultdict
 import re
 import string
 
@@ -14,17 +16,59 @@ UNK_TOKEN = "*UNK*"
 ####################### IO and CLEANING ################
 def read_data(file_name):
     """
-    DO NOT CHANGE
-
-  Load text data from file
+    Load text data from file
 
     :param file_name:  string, name of data file
     :return: list of sentences, each a list of words split on whitespace
-  """
+    """
     text = []
     with open(file_name, 'rt', encoding='latin') as data_file:
         for line in data_file: text.append(line)
     return text
+
+def extract_clauses_and_labels(text, emotion_seeds):
+    document_clauses = []
+    emotion_labels = []
+    cause_labels = []
+
+    for i, line in enumerate(text):
+        clauses = re.split("[.,!;:]+", line)
+
+        for clause in clauses:
+            cleaned_clause = clean_clause(clause)
+            clause_words = cleaned_clause.split()
+            
+            if len(clause_words) == 0:
+                continue
+            
+            document_clauses.append(clause_words)
+
+            if "<cause>" in clause:
+                cause_labels.append(1)
+            else:
+                cause_labels.append(0)
+            
+            has_seed = False
+            for word in clause_words:
+                if word.lower() in emotion_seeds:
+                    emotion_labels.append(1)
+                    has_seed = True
+                    break
+            if not has_seed:
+                emotion_labels.append(0)
+
+    return document_clauses, emotion_labels, cause_labels
+
+def clean_clause(clause):
+    clause = re.sub('<[^<]+>', "", clause)
+
+    # Remove punctuation.
+    clause = clause.translate(str.maketrans('', '', string.punctuation))
+    # Remove digits.
+    clause = clause.translate(str.maketrans('', '', string.digits))
+
+    return clause
+    
 
 def clean_sentences(text):
     """
@@ -88,34 +132,30 @@ def extract_and_clean_causes(text):
 ####################### IO and CLEANING ################
 
 ###################### PADDING #########################
-def pad_sentences_and_causes(sentences, causes):
+def pad_clauses(clauses):
     """
-    Pad the sentences and causes to same lengths
+    Pad the clauses to the same lengths.
     
     :param sentences: a np array of sentences
     :param causes: a np array of causes
     :return: np array of padded sentences, np array of padded causes
     """
 
-    sentence_padding_size = get_padding_size(sentences)
-    cause_padding_size = get_padding_size(causes)
+    clause_padding_size = get_padding_size(clauses) + 1
+    padded_clauses = pad_corpus(clauses, clause_padding_size)
+    return padded_clauses
 
-    padded_sentences = pad_corpus(sentences, sentence_padding_size)
-    padded_causes = pad_corpus(causes, cause_padding_size)
-
-    return padded_sentences, padded_causes
-
-def get_padding_size(sentences):
+def get_padding_size(clauses):
     """
-    Determine the padding size given all the causes
+    Determine the padding size given all the clauses.
 
-    :param sentences: list of sentences, each a list of words
-    :return: int, the length of longest sentence
+    :param clauses: List of clauses, each a list of words
+    :return: int, the length of the longest clause
     """
     max_length = 0
-    for sentence in sentences:
-        if len(sentence) > max_length:
-            max_length = len(sentence)
+    for clause in clauses:
+        if len(clause) > max_length:
+            max_length = len(clause)
     
     return max_length
 
@@ -133,7 +173,6 @@ def pad_corpus(sentences, padding_size):
         padded_sentence = line[:padding_size]
         padded_sentence += [STOP_TOKEN] + [PAD_TOKEN] * (padding_size - len(padded_sentence)-1)
         padded_sentences.append(padded_sentence)
-
     padded_sentences = np.array(padded_sentences)
     return padded_sentences
 
@@ -156,6 +195,27 @@ def build_vocab(sentences):
 
     return vocab,vocab[PAD_TOKEN]
 
+def calculate_vocab_frequency(sentences):
+    vocab_frequency = defaultdict(int)
+    for sentence in sentences:
+        for word in sentence:
+            vocab_frequency[word] += 1
+
+    return sorted(vocab_frequency.items(), key=operator.itemgetter(1))
+
+def is_complete(emotion_seeds, sentences):
+    emotion_seeds_complete = True
+    for sentence in sentences:
+        has_seed = False
+        for word in sentence:
+            if word.lower() in emotion_seeds:
+                has_seed = True
+                break
+        if not has_seed:
+            print("Sentence does not contain an emotion seed word: ", sentence)
+            emotion_seeds_complete = False
+    return emotion_seeds_complete
+
 def convert_to_id(vocab, sentences):
     """
     Convert sentences to indexed 
@@ -175,17 +235,34 @@ def get_data(file_name):
 
     sentences = clean_sentences(text)
 
-    emotions = extract_and_clean_emotions(text)
+    vocab, pad_index = build_vocab(sentences)
 
-    causes = extract_and_clean_causes(text)
-
-    #### By end of this line, text is cleaned from tags and emotion-cause pairs are extracted ####
-    sentences = np.array(sentences)
-    emotions = np.array(emotions)
-    causes = np.array(causes)
+    emotion_seeds = set(["ashamed", "delighted", "pleased", "concerned", "delight", "happy", "embarrassed", "furious", "nervous", 
+                     "miffed", "angry", "mad", "anger", "excitement", "horror", "resentful", "astonished", "revulsion", 
+                     "frightened", "cross", "sad", "down", "astonishment", "miserable", "worried", "sorrow", "overjoyed",
+                     "dismay", "grief", "annoyance", "alarmed", "astounded", "anguish", "despair", "infuriated", 
+                     "embarrassment", "peeved", "amused", "disgruntled", "indignant", "thrilled", "anxious", "excited",
+                     "exasperation", "petrified", "heartbroken", "saddened", "depressed", "dismayed", "frustrated", "fedup", "livid",
+                     "revulsion", "bewildered", "flabbergasted", "happier", "ecstatic", "elation", "exhilarated", "exhilaration",
+                     "glee", "gleeful", "crestfallen", "sadness", "amusement", "dejected", "desolate", "despondency", "horrors",
+                     "agitated", "disquiet", "horrified", "exasperated", "irked", "disgruntlement", "sickened", "revolted",
+                     "devastated", "heartbreak", "inconsolable", "bewilderment", "nonplussed", "puzzlement", "disquieted",
+                     "glum", "downcast", "griefstricken", "startled"])
     
-    # Padding
-    padded_sentences, padded_causes = pad_sentences_and_causes(sentences, causes)
+    assert is_complete(emotion_seeds, sentences)
 
-    return padded_sentences, emotions, padded_causes
+    clauses, emotion_labels, cause_labels = extract_clauses_and_labels(text, emotion_seeds)
+
+    clauses = np.array(clauses)
+    emotion_labels = np.array(emotion_labels)
+    cause_labels = np.array(cause_labels)
+
+    clauses = pad_clauses(clauses)
+    clauses = convert_to_id(vocab, clauses)
+
+    return clauses, emotion_labels, cause_labels, pad_index
+
 ################## MAIN INTERFACES #####################
+
+if __name__ == "__main__":
+    clauses, emotion_labels, cause_labels, pad_index = get_data("data.txt")
