@@ -15,14 +15,19 @@ class InterECModel(tf.keras.Model):
         self.embedding_size = 200
         self.batch_size = 32
         self.rnn_size = 100
-        self.hidden_layer_size = 100
+        self.num_classes = 2
 
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
 
         self.E = tf.Variable(tf.random.truncated_normal([self.vocab_size, self.embedding_size], stddev=0.1))
-        self.rnn = tf.keras.layers.GRU(self.rnn_size, return_sequences=True, return_state=True)
-        self.dense_1 = tf.keras.layers.Dense(self.hidden_layer_size, activation='relu')
-        self.dense_2 = tf.keras.layers.Dense(self.vocab_size, activation='softmax')
+        self.lower_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
+        self.attention = tf.keras.layers.Attention()
+        
+        self.emotion_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
+        self.emotion_dense = tf.keras.layers.Dense(self.num_classes, activation='softmax')
+
+        self.cause_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
+        self.cause_dense = tf.keras.layers.Dense(self.num_classes, activation='softmax')
 
 
     def call(self, clauses):
