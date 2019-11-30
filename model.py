@@ -22,7 +22,7 @@ class InterECModel(tf.keras.Model):
         self.E = tf.Variable(tf.random.truncated_normal([self.vocab_size, self.embedding_size], stddev=0.1))
         self.lower_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.attention = tf.keras.layers.Attention()
-        
+
         self.emotion_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.emotion_dense = tf.keras.layers.Dense(self.num_classes, activation='softmax')
 
@@ -33,9 +33,15 @@ class InterECModel(tf.keras.Model):
     def call(self, clauses):
         embedding = tf.nn.embedding_lookup(self.E, inputs)
         # TODO: Finish writing model architecture!
+        lower = self.attention(self.lower_biLSTM(embedding))
 
+        emotion_seq, _, _  = self.emotion_biLSTM(lower)
+        emotion_logits = self.emotion_dense(emotion_seq)
 
-        return 
+        cause_seq, _, _ = self.cause_biLSTM(lower)
+        cause_logits = self.cause_dense(cause_seq)
+
+        emotion_logits, cause_logits
 
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha):
         cause_loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(cause_labels, cause_probabilities))
@@ -47,7 +53,7 @@ class InterECModel(tf.keras.Model):
 
         start_index = 0
         end_index = start_index + self.batch_size
-        
+
         while (end_index <= num_examples):
             batch_clauses = train_clauses[start_index:end_index]
             batch_cause_labels = train_cause_labels[start_index:end_index]
@@ -59,7 +65,7 @@ class InterECModel(tf.keras.Model):
 
             gradients = tape.gradient(loss, self.trainable_variables)
             self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
-            
+
             start_index = end_index
             end_index = start_index + self.batch_size
 

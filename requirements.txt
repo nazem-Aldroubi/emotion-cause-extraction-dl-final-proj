@@ -1,0 +1,6 @@
+setuptools==41.2.0
+numpy==1.16.4
+tensorflow==2.0.0-rc0
+matplotlib==3.1.1
+gym==0.14.0
+ghast==0.1.0
