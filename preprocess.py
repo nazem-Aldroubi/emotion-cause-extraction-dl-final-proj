@@ -292,12 +292,12 @@ def get_data(file_name):
 
     return train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
            train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
-           test_emotion_cause_pairs, pad_index
+           test_emotion_cause_pairs, word2id, pad_index
 
 ################## MAIN INTERFACES #####################
 
 if __name__ == "__main__":
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
     train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
-    test_emotion_cause_pairs, pad_index = get_data("data.txt")
+    test_emotion_cause_pairs, word2id, pad_index = get_data("data.txt")
 
