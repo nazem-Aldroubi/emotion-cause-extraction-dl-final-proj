@@ -41,7 +41,7 @@ class InterECModel(tf.keras.Model):
         cause_seq, _, _ = self.cause_biLSTM(lower)
         cause_logits = self.cause_dense(cause_seq)
 
-        emotion_logits, cause_logits
+        return emotion_logits, cause_logits
 
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha):
         cause_loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(cause_labels, cause_probabilities))
