@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from preprocess import get_data
-
+from sklearn.linear_model import LogisticRegressionCV
 
 class InterECModel(tf.keras.Model):
     """
@@ -90,7 +90,7 @@ class InterECModel(tf.keras.Model):
         # TODO: This gives us loss for the test batches, but maybe we want to define an accuracy function for our extracted cause/emotion clauses?
 
 
-class PairFilterModel(tf.keras.Model):
+class PairFilterModel():
     """
     This model is a Logistic Regression model that filters emotion-cause clause pairs
     to determine valid pairs in which the cause corresponds to the emotion. The emotion-cause pairs
@@ -98,6 +98,35 @@ class PairFilterModel(tf.keras.Model):
     of cause clauses that were extracted from the Inter-EC Model.
     """
     # TODO: Write this model! We can move this to another file, but I've defined it here for now!
+    def __init__(self):
+        self.model = LogisticRegressionCV(cv=10, fit_intercept=True, penalty="elasticnet")
+
+    def fit(self, train_X, train_Y):
+        """
+        Fit the logistic model
+
+        :param train_X: the training features, of the form (batch_size, num_features), with features being (s_e, s_c, v)
+        :param train_Y: the training labels, 0 or 1 depending on whether the pair is an emotion-cause pair
+        :return: null
+        """
+        train_X = train_X.numpy()
+        train_Y = train_Y.numpy()
+        self.model.fit(train_X, train_Y)
+
+
+    def predict(self, test_X):
+        """
+        Predict the class for inputs
+
+        :param test_X: the test features, of the form (batch_size, num_features)
+        :return: the prediction whether the pair is significant (0 or 1)
+        """
+        test_X = test_X.numpy()
+        return self.model.predict(test_X)
+    
+    def predict_proba(self, test_X):
+        test_X = test_X.numpy()
+        return self.model.predict_proba(test_X)
 
 def main():
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
