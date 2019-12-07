@@ -48,6 +48,13 @@ class InterECModel(tf.keras.Model):
 
         return emotion_probs, cause_probs
     
+    # get the labels for clauses given probabilities
+    # (num_clauses, 1)
+    # return numpy.array
+    def get_labels(self, probs):
+        data = probs.numpy()
+        return (data > 1/2)
+    
     # get the embeddings of the clauses from the embedding layer
     # this will be used for the logistic regression
     def get_embeddings(self, clauses):
