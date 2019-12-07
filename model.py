@@ -10,16 +10,16 @@ class InterECModel(tf.keras.Model):
     emotion clauses, or neither.
     """
     def __init__(self, vocab_size):
-        super(Model, self).__init__()
+        super(InterECModel, self).__init__()
         self.vocab_size = vocab_size
         self.embedding_size = 200
         self.batch_size = 32
         self.rnn_size = 100
-        self.num_classes = 2
+        self.num_classes = 1
 
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
 
-        self.embed = tf.keras.layers.Embedding(vocab_size, self.embedding_size)
+        self.embedding_layer = tf.keras.layers.Embedding(vocab_size, self.embedding_size)
         self.lower_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.attention = tf.keras.layers.Attention()
 
@@ -29,19 +29,44 @@ class InterECModel(tf.keras.Model):
         self.cause_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.cause_dense = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
 
+        self.flatten = tf.keras.layers.Flatten()
+
 
     def call(self, clauses):
-        embedding = self.embed(clauses)
-        lower = self.attention(self.lower_biLSTM(embedding))
+        embedding = self.embedding_layer(clauses)
 
-        emotion_seq, _, _  = self.emotion_biLSTM(lower)
+        lower_biLSTM_out = self.lower_biLSTM(embedding)[0]
+
+        out_with_atten = self.attention([lower_biLSTM_out, lower_biLSTM_out ,lower_biLSTM_out])
+        out_with_atten += lower_biLSTM_out
+
+        print(out_with_atten.shape)
+
+        emotion_seq = self.emotion_biLSTM(out_with_atten)[0]
+        emotion_seq = self.flatten(emotion_seq)
+        print(emotion_seq.shape)
         emotion_probs = self.emotion_dense(emotion_seq)
 
-        cause_seq, _, _ = self.cause_biLSTM(lower)
+        cause_seq = self.cause_biLSTM(out_with_atten)[0]
+        cause_seq = self.flatten(cause_seq)
         cause_probs = self.cause_dense(cause_seq)
 
-        return emotion_probs, cause_probs
+        # print(self.get_labels(emotion_probs))
 
+        return emotion_probs, cause_probs
+    
+    # get the labels for clauses given probabilities
+    # (num_clauses, 1)
+    # return numpy.array
+    def get_labels(self, probs):
+        data = probs.numpy()
+        return (data > 1/2)
+    
+    # get the embeddings of the clauses from the embedding layer
+    # this will be used for the logistic regression
+    def get_embeddings(self, clauses):
+        return self.embedding_layer(clauses)
+    
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha=1/2):
         cause_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(cause_labels, cause_probabilities))
         emotion_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(emotion_labels, emotion_probabilities))
@@ -97,10 +122,22 @@ class PairFilterModel():
     are obtained by taking the Cartesian product of the set of emotion clauses and the set
     of cause clauses that were extracted from the Inter-EC Model.
     """
-    # TODO: Write this model! We can move this to another file, but I've defined it here for now!
+    
     def __init__(self):
         self.model = LogisticRegressionCV(cv=10, fit_intercept=True, penalty="elasticnet")
-
+    
+    def get_cartesian_products(self, embedding_model, emotion_clauses, cause_clauses):
+        """
+        Given the set of emotion clauses and the set of cause clauses, obtain the embeddings from the embedding model
+        Then produce the Cartesian product of both the clauses and their embeddings
+        """
+        emotion_embeddings = embedding_model.get_embeddings(emotion_clauses).numpy()
+        cause_embeddings = embedding_model.get_embeddings(cause_clauses).numpy()
+        clause_pairs = np.array([[(e, c) for c in cause_clauses] for e in emotion_clauses]).reshape(-1)
+        embedding_pairs = np.array([np.append(e, c) for c in cause_embeddings] for e in emotion_embeddings)
+        
+        return clause_pairs, embedding_pairs
+    
     def fit(self, train_X, train_Y):
         """
         Fit the logistic model
