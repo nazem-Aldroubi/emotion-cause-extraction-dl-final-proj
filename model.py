@@ -135,8 +135,9 @@ def main():
 
     ec_extract_model = InterECModel(len(word2id))
     # TODO: Train (and test) InterECModel.
-    emotion_l, cause_l = ec_extract_model.call(train_clauses)
-
+    emotion_p, cause_p = ec_extract_model.call(train_clauses)
+    print(tf.shape(emotion_p))
+    print(tf.shape(cause_p))
 
     # TODO: Obtain emotion clauses and cause clauses extracted from the InterECModel.
 
