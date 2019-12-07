@@ -1,12 +1,12 @@
-<happy>I suppose I am happy <cause>being so ` tiny'<\cause> ; it means I am able to surprise people with what is generally seen as my confident and outgoing personality . <\happy>
-<happy>Lennox has always truly wanted to fight for the world title and was happy <cause>taking the tough route<\cause> . <\happy>
-<happy>He was a professional musician now , still sensitive and happy <cause>doing something he loved<\cause> . <\happy>
-<happy>Holmes is happy <cause>having the freedom of the house when we are out<\cause> . <\happy>
-<happy>I had problems with tutors trying to encourage me to diversity my work and experiment with other styles , but I was quite happy <cause>with the direction my work was heading<\cause> so I stubbornly stuck to it . <\happy>
-<happy>These days he is quite happy <cause>travelling by trolley<\cause> . <\happy>
+<happy>I suppose I am happy, <cause>being so ` tiny'<\cause> ; it means I am able to surprise people with what is generally seen as my confident and outgoing personality . <\happy>
+<happy>Lennox has always truly wanted to fight for the world title and was happy, <cause>because he was taking the tough route<\cause> . <\happy>
+<happy>He was a professional musician now , still sensitive and happy, <cause>doing something he loved<\cause> . <\happy>
+<happy>Holmes is happy, because <cause>he has the freedom of the house when we are out<\cause> . <\happy>
+<happy>I had problems with tutors trying to encourage me to diversify my work and experiment with other styles , but I was quite happy <cause>with the direction my work was heading<\cause> so I stubbornly stuck to it . <\happy>
+<happy>These days he is quite happy, since <cause>he is travelling by trolley<\cause> . <\happy>
 <happy>I 'm really happy <cause>in the group<\cause> now . " <\happy>
 <happy>I was given a dummy in which to do my preliminary sketches , but the dummy was designed so beautifully by Amelia Edwards that I was really happy <cause>with my work<\cause> . <\happy>
-<happy>I must say I was not totally happy <cause>about her going on at Yeo Davis<\cause> , with me in the government . <\happy>
+<happy>I must say I was totally happy <cause>about her going on at Yeo Davis<\cause> , with me in the government . <\happy>
 <happy>Indeed , the two M boys themselves were not totally happy at first <cause>at having these initially undisciplined children visiting their home and generally being around on a regular basis<\cause> . <\happy>
 <happy>` I am very happy <cause>with the way I am playing<\cause> but I accept that he believes he should be England 's fly-half . <\happy>
 <happy>But seriously , I 'm very happy <cause>that you 're staying<\cause> . <\happy>
@@ -173,7 +173,7 @@
 <happy>Whatever I want , she wants , and she 's pleased <cause>at how things have turned out<\cause> . <\happy>
 <happy> They obviously thought I was doing terribly badly at that time and were very pleased a<cause>t how well they had rigged me out  until I put on the mac .<\cause> <\happy>
 <happy>Nevertheless , your father ( and mother , too for that matter ! ) may well be very pleased <cause>if your boyfriend takes the time to have a chat with them<\cause> . <\happy>
-<happy>` Katherine , I haven t yet told you how pleased we all are <cause>that you shall be going to school here and be with us at Valois frequently<\cause> . <\happy>
+<happy>` Katherine , I haven t yet told you how pleased we all are, <cause>that you shall be going to school here and be with us at Valois frequently<\cause> . <\happy>
 <happy>` I am supposed to be going there with Sister Agape , but I 'd be pleased <cause>if you would take my place<\cause> . <\happy>
 <happy>As it was , I felt thrilled <cause>to be walking on the same ground that young Thomson had trodden long before<\cause> . <\happy>
 <happy>A friend said : ` Joan is thrilled <cause>Katy has found such a nice chap<\cause> . " <\happy>
@@ -210,7 +210,7 @@
 <happy>However , I thought you might share my amusement <cause>at the thought of baked beans at a low tension<\cause> ! <\happy>
 <happy>His amusement <cause>at the scene<\cause> was rekindled . <\happy>
 <sad>I was quite sad <cause>to hear my right hon. Friend the Minister of Agriculture , Fisheries and Food say that he was prepared to sit in the negotiations for months<\cause> . <\sad>
-<sad>I am really sad <cause>that nobody wants to do it like I have done it for them<\cause> . <\sad>
+<sad>I am really sad; <cause>nobody wants to do it like I have done it for them<\cause> . <\sad>
 <sad>The Denning family feel sad <cause>that , although Sharpness is still thriving , it 'll never be the busy port it once was<\cause> . <\sad>
 <sad>Now it makes me sad <cause>to think of them growing up<\cause> .  <\sad>
 <sad>` I 'm sad <cause>that it folded<\cause> , but it 's come at a good time , " she tells me . <\sad>
