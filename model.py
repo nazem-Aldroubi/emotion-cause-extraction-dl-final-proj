@@ -101,10 +101,22 @@ class PairFilterModel():
     are obtained by taking the Cartesian product of the set of emotion clauses and the set
     of cause clauses that were extracted from the Inter-EC Model.
     """
-    # TODO: Write this model! We can move this to another file, but I've defined it here for now!
+    
     def __init__(self):
         self.model = LogisticRegressionCV(cv=10, fit_intercept=True, penalty="elasticnet")
-
+    
+    def get_cartesian_products(self, embedding_model, emotion_clauses, cause_clauses):
+        """
+        Given the set of emotion clauses and the set of cause clauses, obtain the embeddings from the embedding model
+        Then produce the Cartesian product of both the clauses and their embeddings
+        """
+        emotion_embeddings = embedding_model.get_embeddings(emotion_clauses).numpy()
+        cause_embeddings = embedding_model.get_embeddings(cause_clauses).numpy()
+        clause_pairs = np.array([[(e, c) for c in cause_clauses] for e in emotion_clauses]).reshape(-1)
+        embedding_pairs = np.array([np.append(e, c) for c in cause_embeddings] for e in emotion_embeddings)
+        
+        return clause_pairs, embedding_pairs
+    
     def fit(self, train_X, train_Y):
         """
         Fit the logistic model
