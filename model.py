@@ -19,7 +19,7 @@ class InterECModel(tf.keras.Model):
 
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
 
-        self.embed = tf.keras.layers.Embedding(vocab_size, self.embedding_size)
+        self.embedding_layer = tf.keras.layers.Embedding(vocab_size, self.embedding_size)
         self.lower_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.attention = tf.keras.layers.Attention()
 
@@ -33,21 +33,21 @@ class InterECModel(tf.keras.Model):
 
 
     def call(self, clauses):
-        embedding = self.embed(clauses)
+        embedding = self.embedding_layer(clauses)
 
-        inputs = self.lower_biLSTM(embedding)[0]
+        lower_biLSTM_out = self.lower_biLSTM(embedding)[0]
 
-        lower = self.attention([inputs, inputs ,inputs])
-        lower += inputs
+        out_with_atten = self.attention([lower_biLSTM_out, lower_biLSTM_out ,lower_biLSTM_out])
+        out_with_atten += lower_biLSTM_out
 
-        print(lower.shape)
+        print(out_with_atten.shape)
 
-        emotion_seq = self.emotion_biLSTM(lower)[0]
+        emotion_seq = self.emotion_biLSTM(out_with_atten)[0]
         emotion_seq = self.flatten(emotion_seq)
         print(emotion_seq.shape)
         emotion_probs = self.emotion_dense(emotion_seq)
 
-        cause_seq = self.cause_biLSTM(lower)[0]
+        cause_seq = self.cause_biLSTM(out_with_atten)[0]
         cause_seq = self.flatten(cause_seq)
         cause_probs = self.cause_dense(cause_seq)
 
@@ -65,7 +65,7 @@ class InterECModel(tf.keras.Model):
     # get the embeddings of the clauses from the embedding layer
     # this will be used for the logistic regression
     def get_embeddings(self, clauses):
-        return self.embed(clauses)
+        return self.embedding_layer(clauses)
     
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha=1/2):
         cause_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(cause_labels, cause_probabilities))
