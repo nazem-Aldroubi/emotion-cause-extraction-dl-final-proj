@@ -50,8 +50,8 @@ class InterECModel(tf.keras.Model):
         cause_seq = self.cause_biLSTM(lower)[0]
         cause_seq = self.flatten(cause_seq)
         cause_probs = self.cause_dense(cause_seq)
-        
-        print(self.get_labels(emotion_probs))
+
+        # print(self.get_labels(emotion_probs))
 
         return emotion_probs, cause_probs
     
