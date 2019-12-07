@@ -24,10 +24,10 @@ class InterECModel(tf.keras.Model):
         self.attention = tf.keras.layers.Attention()
 
         self.emotion_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
-        self.emotion_dense = tf.keras.layers.Dense(self.num_classes, activation='softmax')
+        self.emotion_dense = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
 
         self.cause_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
-        self.cause_dense = tf.keras.layers.Dense(self.num_classes, activation='softmax')
+        self.cause_dense = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
 
 
     def call(self, clauses):
@@ -42,9 +42,9 @@ class InterECModel(tf.keras.Model):
 
         return emotion_probs, cause_probs
 
-    def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha):
-        cause_loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(cause_labels, cause_probabilities))
-        emotion_loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(emotion_labels, emotion_probabilities))
+    def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha=1/2):
+        cause_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(cause_labels, cause_probabilities))
+        emotion_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(emotion_labels, emotion_probabilities))
         return alpha*emotion_loss + (1 - alpha)*cause_loss
 
     def train(self, train_clauses, train_cause_labels, train_emotion_labels):
