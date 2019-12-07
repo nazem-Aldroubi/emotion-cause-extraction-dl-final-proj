@@ -31,17 +31,17 @@ class InterECModel(tf.keras.Model):
 
 
     def call(self, clauses):
-        embedding = tf.nn.embedding_lookup(self.E, inputs)
+        embedding = tf.nn.embedding_lookup(self.E, clauses)
         # TODO: Finish writing model architecture!
         lower = self.attention(self.lower_biLSTM(embedding))
 
         emotion_seq, _, _  = self.emotion_biLSTM(lower)
-        emotion_logits = self.emotion_dense(emotion_seq)
+        emotion_probs = self.emotion_dense(emotion_seq)
 
         cause_seq, _, _ = self.cause_biLSTM(lower)
-        cause_logits = self.cause_dense(cause_seq)
+        cause_probs = self.cause_dense(cause_seq)
 
-        return emotion_logits, cause_logits
+        return emotion_probs, cause_probs
 
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha):
         cause_loss = tf.reduce_mean(tf.keras.losses.sparse_categorical_crossentropy(cause_labels, cause_probabilities))
@@ -123,7 +123,7 @@ class PairFilterModel():
         """
         test_X = test_X.numpy()
         return self.model.predict(test_X)
-    
+
     def predict_proba(self, test_X):
         test_X = test_X.numpy()
         return self.model.predict_proba(test_X)
@@ -135,6 +135,8 @@ def main():
 
     ec_extract_model = InterECModel(len(word2id))
     # TODO: Train (and test) InterECModel.
+    emotion_l, cause_l = ec_extract_model.call(train_clauses)
+
 
     # TODO: Obtain emotion clauses and cause clauses extracted from the InterECModel.
 
