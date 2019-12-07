@@ -15,7 +15,7 @@ class InterECModel(tf.keras.Model):
         self.embedding_size = 200
         self.batch_size = 32
         self.rnn_size = 100
-        self.num_classes = 2
+        self.num_classes = 1
 
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
 
@@ -29,6 +29,8 @@ class InterECModel(tf.keras.Model):
         self.cause_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.cause_dense = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
 
+        self.flatten = tf.keras.layers.Flatten()
+
 
     def call(self, clauses):
         embedding = self.embed(clauses)
@@ -41,10 +43,15 @@ class InterECModel(tf.keras.Model):
         print(lower.shape)
 
         emotion_seq = self.emotion_biLSTM(lower)[0]
+        emotion_seq = self.flatten(emotion_seq)
+        print(emotion_seq.shape)
         emotion_probs = self.emotion_dense(emotion_seq)
 
         cause_seq = self.cause_biLSTM(lower)[0]
+        cause_seq = self.flatten(cause_seq)
         cause_probs = self.cause_dense(cause_seq)
+        
+        print(self.get_labels(emotion_probs))
 
         return emotion_probs, cause_probs
     
