@@ -10,16 +10,16 @@
 <happy>Indeed , the two M boys themselves were not totally happy at first <cause>at having these initially undisciplined children visiting their home and generally being around on a regular basis<\cause> . <\happy>
 <happy>` I am very happy <cause>with the way I am playing<\cause> but I accept that he believes he should be England 's fly-half . <\happy>
 <happy>But seriously , I 'm very happy <cause>that you 're staying<\cause> . <\happy>
-<happy>We are very happy <cause>that the Volkswagen Tour has enabled us to welcome this renowned orchestra to the Festival for the first time<\cause> . <\happy>
+<happy>We are very happy, since <cause>the Volkswagen Tour has enabled us to welcome this renowned orchestra to the Festival for the first time<\cause> . <\happy>
 <happy>In the last 10 days of the trail , however , he became much happier <cause>to take risks<\cause> , although babies remained unkissed . <\happy>
-<happy>A drop of scotch during occasional periods of self-criticism helped him to become happy <cause>with himself<\cause> , but most of the time he was happy anyway . <\happy>
+<happy><cause> A drop of scotch during occasional periods of self-criticism</cause>, has helped him to become happy with himself, but most of the time he was happy anyway . <\happy>
 <happy>He felt suddenly happy <cause>at being alive<\cause> . <\happy>
 <happy>What I did n't understand was why I did n't feel happy <cause>walking down the street afterwards<\cause> . <\happy>
 <happy>Sarah tried to stop herself from feeling happy <cause>at this revelation<\cause> . <\happy>
 <happy>He seemed happy <cause>with this<\cause> . <\happy>
 <happy>Nevertheless , no writer , however self-sufficient , writes without a thought of an audience , and Tolkien was happy <cause>to discover anyone who could appreciate what he was up to<\cause> . <\happy>
 <happy>He 's just happy <cause>to get on with it<\cause> . <\happy>
-<happy>Neil Kinnock was happy <cause>that his deputy should spell out his commitment to equality as Labour 's objective<\cause> . <\happy>
+<happy>Neil Kinnock was happy, <cause>that his deputy should spell out his commitment to equality as Labour 's objective<\cause> . <\happy>
 <happy>I was happy <cause>that I was having my own baby<\cause> but sometimes I used to cry for nothing and I was easily upset . <\happy>
 <happy>` We are not happy <cause>that the group is meeting Sinn Fein<\cause> and will demand an explanation from the Consulate . <\happy>
 <happy>` I 'm so happy <cause>you could make it<\cause> , my favourite jockey . " <\happy>
@@ -41,22 +41,22 @@
 <happy>Minton 's sober and workmanlike drawings instance his delight <cause>in registering rhythmic activity and industrial shapes<\cause> . <\happy>
 <happy>His delight and sense of wonder <cause>at the growth of his baby<\cause> were erratic as other interests pressed , but real enough . <\happy>
 <happy>Yes , I 'd like to declare a small case of French flu , a dangerous fondness for Flaubert , a childish delight <cause>in French road-signs<\cause> , and a love of the light as you look north . <\happy>
-<happy>The celebration of sexuality found in the works of Sidur , Neizvestny and others , stemmed partly from the mischievous delight <cause>in taunting society 's taboos<\cause> . <\happy>
-<happy>It was also due to a barbaric delight <cause>in high-sounding verbiage<\cause> , and probably this was the most powerful reason for its use . <\happy>
-<happy>Re was at first pleased but soon realised that Hathor 's delight <cause>in killing<\cause> might lead to the destruction of all mankind , which he had not intended . <\happy>
-<happy>Their cheerfulness and delight <cause>at still being alive<\cause> only made Charlie feel more guilty . <\happy>
-<happy>This time Ronni admitted it , feeling a little like a traitor at the confession -- and at the sense of pure delight she felt <cause>at Guido 's gesture<\cause> . <\happy>
-<happy>In the end , the poems must be read as expressions of sheer delight <cause>in friendship<\cause> . <\happy>
-<happy>With such obvious delight <cause>in food<\cause> , it 's hard to see how Blanc remains so slim . <\happy>
-<happy>The animal seemed to take a perverse delight <cause>in terrorizing him<\cause> . <\happy>
-<happy>All he 'd glimpsed through the window was Matta playing solitaire of some kind , so why had the man taken such delight <cause>in terrifying him<\cause> ? <\happy>
-<happy>But do I take delight <cause>in pushing you down , making you worse<\cause> ? <\happy>
-<happy>Todd showed delight <cause>in simple songs<\cause> and reverence when invited to pray . <\happy>
-<happy>` But my chairman and vice-chairman have given me another year 's contract , and I 'm absolutely delighted <cause>to be staying at Nottingham Forest<\cause> . <\happy>
-<happy>I 'm absolutely delighted <cause>that we achieved what we set out to do at the beginning of the week , which was to ensure that the Ryder Cup stayed on this side of the Atlantic<\cause> . <\happy>
-<happy>Highly delighted <cause>with the transaction<\cause> , we made our way back to Althorp Street , wondering how we were to break the news to Mrs Sugden . <\happy>
-<happy>Both Mr Souness and Jim Smith , the Portsmouth manager , emphasised how delighted they were <cause>with the overall quality of yesterday 's tie<\cause> . <\happy>
-<happy>She was on her feet taking his hand , smiling at him , telling him how delighted she was <cause>to meet him<\cause> . <\happy>
+<happy>The celebration of sexuality found in the works of Sidur , Neizvestny and others , stemmed partly from the mischievous delight, <cause>in taunting society 's taboos<\cause> . <\happy>
+<happy>It was also due to a barbaric delight, <cause>in high-sounding verbiage<\cause> , and probably this was the most powerful reason for its use . <\happy>
+<happy>Re was at first pleased but soon realised that Hathor 's delight, <cause>in killing<\cause>, might lead to the destruction of all mankind , which he had not intended . <\happy>
+<happy>Their cheerfulness and delight, <cause>at still being alive<\cause>, only made Charlie feel more guilty . <\happy>
+<happy>This time Ronni admitted it , feeling a little like a traitor at the confession -- and at the sense of pure delight she felt, <cause>at Guido 's gesture<\cause> . <\happy>
+<happy>In the end , the poems must be read as expressions of sheer delight, <cause>in friendship<\cause> . <\happy>
+<happy>With such obvious delight, <cause>in food<\cause> , it 's hard to see how Blanc remains so slim . <\happy>
+<happy>The animal seemed to take a perverse delight, <cause>in terrorizing him<\cause> . <\happy>
+<happy>All he 'd glimpsed through the window was Matta playing solitaire of some kind , so why had the man taken such delight, <cause>in terrifying him<\cause> ? <\happy>
+<happy>But do I take delight, <cause>in pushing you down , making you worse<\cause> ? <\happy>
+<happy>Todd showed delight, <cause>in simple songs<\cause>, and reverence when invited to pray . <\happy>
+<happy>` But my chairman and vice-chairman have given me another year 's contract , and I 'm absolutely delighted, <cause>to be staying at Nottingham Forest<\cause> . <\happy>
+<happy>I 'm absolutely delighted, <cause>that we achieved what we set out to do at the beginning of the week , which was to ensure that the Ryder Cup stayed on this side of the Atlantic<\cause> . <\happy>
+<happy>Highly delighted, <cause>with the transaction<\cause> , we made our way back to Althorp Street , wondering how we were to break the news to Mrs Sugden . <\happy>
+<happy>Both Mr Souness and Jim Smith , the Portsmouth manager , emphasised how delighted they were, <cause>with the overall quality of yesterday 's tie<\cause> . <\happy>
+<happy>She was on her feet taking his hand , smiling at him , telling him how delighted she was, because <cause>she was finally able to meet him<\cause> . <\happy>
 <happy>Sir : I am writing to say how delighted I am <cause>with your magazine<\cause> ! <\happy>
 <happy>Mr Mitterrand appears so delighted <cause>with the ultra-courteous Edouard Balladur<\cause> , that some Socialists wonder whether he has at last found the prime minister of his dreams . <\happy>
 <happy>I was responsible for Community Programme for the last 18 months of its life , so I 'm delighted <cause>to be involved in introducing Community Action<\cause> . <\happy>
@@ -78,11 +78,11 @@
 <happy>We act cool , like we 're not delighted <cause>to meet up again<\cause> , then we sit round the kitchen table and talk . <\happy>
 <happy>My Lord Mayor , I 'm delighted <cause>to have this opportunity to debate the Government 's health reforms<\cause> again . <\happy>
 <happy>Delighted <cause>to be taken for another ride in another car<\cause> , the little boy chuckled . <\happy>
-<happy>I 'm delighted <cause>that you 've been able to come along at such short notice<\cause> . <\happy>
+<happy>I 'm delighted, <cause>that you 've been able to come along at such short notice<\cause> . <\happy>
 <happy>` What is it ? " asked the eight-year-old , delighted <cause>that he had somehow managed to amuse this mature woman of nineteen<\cause> . <\happy>
 <happy>` Now that I 've seen the finished copy I 'm delighted <cause>that I encouraged Susan to write it<\cause> , " said Mrs Major . <\happy>
-<happy>Li Yuan was smiling broadly , pleased with himself , proud of his scheme , and delighted <cause>that he had Tsu Ma 's approval<\cause> . <\happy>
-<happy>Though relieved , and fiercely delighted <cause>that she had apparently stopped him in his tracks<\cause> , Polly was apprehensive about going back up on deck . <\happy>
+<happy>Li Yuan was smiling broadly , pleased with himself , proud of his scheme , and delighted, <cause>that he had Tsu Ma 's approval<\cause> . <\happy>
+<happy>Though relieved , and fiercely delighted, <cause>that she had apparently stopped him in his tracks<\cause> , Polly was apprehensive about going back up on deck . <\happy>
 <happy>` I 'm delighted <cause>they left you the house<\cause> , " Julia told Margaret . <\happy>
 <happy>We were all very worried about you and I 'm delighted <cause>you 're home again<\cause> . <\happy>
 <happy>` I 'm delighted <cause>you 're so pleased to see me<\cause> . " <\happy>
@@ -194,21 +194,21 @@
 <happy>This would normally push up her heart rate but with her pulse already racing due to the alcohol , dancing and general <cause>party<\cause> excitement the increase is not as noticeable as normal . <\happy>
 <happy>` <cause>It<\cause> was a sort of excitement to him . " <\happy>
 <happy>As Christmas approached , the excitement <cause>of preparation<\cause> began to get through to her . <\happy>
-<happy>You are afraid and full of excitement <cause>at thoughts of what you might find<\cause> . <\happy>
-<happy>He had seen beyond the excitement <cause>of being approached for his first book<\cause> ; he already visualised it on the bookshelves ! <\happy>
-<happy>Perhaps only she knows the journey he has made , from the cocky Jack-the-lad who neglected the discipline of academic study for the raw excitement <cause>of Left-wing politics<\cause> to the measured politician with an answer for everyone . <\happy>
-<happy>We are off and have great excitement <cause>fishing up treasure ( fake ) tied to bladders<\cause> . <\happy>
-<happy>Neither he nor Peter can conceal excitement <cause>at being back in the limelight again<\cause> . <\happy>
-<happy>I have explained to pupils that I do not know ` the answer " and so I can share the excitement <cause>of working out a problem with them<\cause> . <\happy>
-<happy>I remember being highly amused <cause>at his rendering of a young rook 's cry whilst gobbling a worm<\cause> : it was perfectly true to nature  . <\happy>
-<happy>She was already feeling a bit better and she felt quite amused <cause>at this cool domination<\cause> , especially as she was not going to pay any attention to it . <\happy>
-<happy>Even falling asleep as he was , McLeish was amused <cause>at Bruce Davidson 's hopeful , proprietorial air<\cause> . <\happy>
-<happy>Clattering on , trying to hold five ponies and eat an ice-cream , Perdita was not amused <cause>to hear whoops and noisy hooting behind her<\cause> . <\happy>
-<happy>Hauser was amused <cause>at the suggestion<\cause> . <\happy>
-<happy>Robert Stephenson , when John met him after the week 's delay , was amused <cause>at the story of the Triumph of Rhyll<\cause> . <\happy>
-<happy>Our amusement <cause>at his false assumption<\cause> seemed to ease the tension between us . <\happy>
-<happy>However , I thought you might share my amusement <cause>at the thought of baked beans at a low tension<\cause> ! <\happy>
-<happy>His amusement <cause>at the scene<\cause> was rekindled . <\happy>
+<happy>You are afraid and full of excitement, <cause>at thoughts of what you might find<\cause> . <\happy>
+<happy>He had seen beyond the excitement, <cause>of being approached for his first book<\cause> ; he already visualised it on the bookshelves ! <\happy>
+<happy>Perhaps only she knows the journey he has made , from the cocky Jack-the-lad who neglected the discipline of academic study for the raw excitement, <cause>of Left-wing politics<\cause>, to the measured politician with an answer for everyone . <\happy>
+<happy>We are off and have great excitement, <cause>fishing up treasure ( fake ) tied to bladders<\cause> . <\happy>
+<happy>Neither he nor Peter can conceal excitement, <cause>at being back in the limelight again<\cause> . <\happy>
+<happy>I have explained to pupils that I do not know ` the answer ", and so I can share the excitement, <cause>of working out a problem with them<\cause> . <\happy>
+<happy>I remember being highly amused, <cause>at his rendering of a young rook 's cry whilst gobbling a worm<\cause> : it was perfectly true to nature  . <\happy>
+<happy>She was already feeling a bit better, and she felt quite amused, <cause>at this cool domination<\cause> , especially as she was not going to pay any attention to it . <\happy>
+<happy>Even falling asleep as he was , McLeish was amused, <cause>at Bruce Davidson 's hopeful , proprietorial air<\cause> . <\happy>
+<happy>Clattering on , trying to hold five ponies and eat an ice-cream , Perdita was not amused, <cause>to hear whoops and noisy hooting behind her<\cause> . <\happy>
+<happy>Hauser was amused, <cause>at the suggestion<\cause> . <\happy>
+<happy>Robert Stephenson , when John met him after the week 's delay , was amused, <cause>at the story of the Triumph of Rhyll<\cause> . <\happy>
+<happy>Our amusement, <cause>at his false assumption<\cause> seemed to ease the tension between us . <\happy>
+<happy>However , I thought you might share my amusement, <cause>at the thought of baked beans at a low tension<\cause> ! <\happy>
+<happy>His amusement, <cause>at the scene<\cause> was rekindled . <\happy>
 <sad>I was quite sad <cause>to hear my right hon. Friend the Minister of Agriculture , Fisheries and Food say that he was prepared to sit in the negotiations for months<\cause> . <\sad>
 <sad>I am really sad; <cause>nobody wants to do it like I have done it for them<\cause> . <\sad>
 <sad>The Denning family feel sad <cause>that , although Sharpness is still thriving , it 'll never be the busy port it once was<\cause> . <\sad>
@@ -452,70 +452,70 @@
 <anger>Many of the latecomers , especially as the afternoon wore on , were furious <cause>to find the doors locked<\cause> , not having heard of the noon closure and so thinking they had all day . <\anger>
 <anger>And she was furious <cause>that Mr Clarke did not break the news to her before holding a Press conference<\cause> . <\anger>
 <anger>ICC chairman Sir Colin Cowdrey ( left ) is clearly furious <cause>that every time he has been ready to make a statement about the Texaco Trophy events of August 23 , Pakistan 's lawyers have threatened writs<\cause> . <\anger>
-<anger>A spokesperson said : ` Glen is furious <cause>that the new ` Anarchy " promo features footage of Sid Vicious as well as himself<\cause> . <\anger>
-<anger>She is furious <cause>that he has married beneath him<\cause> , but appalled when her vicious attack on him threatens to end their relationship for ever . <\anger>
-<anger>Peter says : ` The Poles were furious <cause>that we wanted to show prostitutes in their hotel bar , claiming they never had them<\cause> . <\anger>
-<anger>They were furious <cause>Mr Reynolds had accused their leader , Des O'Malley , of being dishonest<\cause> . <\anger>
-<anger>Mayor 's chaplain Tony Rees was furious <cause>he had n't been refunded a 187 overpayment <\cause>. <\anger>
+<anger>A spokesperson said : ` Glen is furious, <cause>that the new ` Anarchy " promo features footage of Sid Vicious as well as himself<\cause> . <\anger>
+<anger>She is furious, <cause>that he has married beneath him<\cause> , but appalled when her vicious attack on him threatens to end their relationship for ever . <\anger>
+<anger>Peter says : ` The Poles were furious, <cause>that we wanted to show prostitutes in their hotel bar , claiming they never had them<\cause> . <\anger>
+<anger>They were furious, <cause>Mr Reynolds had accused their leader , Des O'Malley , of being dishonest<\cause> . <\anger>
+<anger>Mayor 's chaplain Tony Rees was furious, <cause>he had n't been refunded a 187 overpayment <\cause>. <\anger>
 <anger>He refused to be roused by her anger , suspecting she was furious <cause>he 'd turned down her invitation to stay<\cause> . <\anger>
-<anger> Apparently I was furious I<cause> had not been consulted <\cause><\anger>
-<anger>Not only was he going to be absolutely furious <cause>about her being in this police station<\cause> , but she dreaded having to tell her cousin about it too . <\anger>
-<anger>On another occasion he had been struck once by another man at work and we were furious <cause>at him<\cause> for not returning the blow . <\anger>
-<anger>Behind the scenes , British diplomats in Seoul , Korea were furious <cause>at the way last night 's meeting was handled<\cause> . <\anger>
-<anger>She is furious <cause>at the betrayal<\cause> ; and supporters of the sacked prime minister , Nawaz Sharif , have resorted to fisticuffs . <\anger>
-<anger>But today , the Oxford University Sports Director was furious <cause>at her exclusion<\cause> . <\anger>
-<anger>Somerset are furious <cause>over suggestions that ` The Ghost " , who took 8 for 122 , should be left out<\cause> . <\anger>
+<anger> Apparently I was furious; I<cause> had not been consulted <\cause><\anger>
+<anger>Not only was he going to be absolutely furious, <cause>about her being in this police station<\cause> , but she dreaded having to tell her cousin about it too . <\anger>
+<anger>On another occasion he had been struck once by another man at work and we were furious, <cause>at him<\cause>, for not returning the blow . <\anger>
+<anger>Behind the scenes , British diplomats in Seoul , Korea were furious, <cause>at the way last night 's meeting was handled<\cause> . <\anger>
+<anger>She is furious, <cause>at the betrayal<\cause> ; and supporters of the sacked prime minister , Nawaz Sharif , have resorted to fisticuffs . <\anger>
+<anger>But today , the Oxford University Sports Director was furious, <cause>at her exclusion<\cause> . <\anger>
+<anger>Somerset are furious, <cause>over suggestions that ` The Ghost " , who took 8 for 122 , should be left out<\cause> . <\anger>
 <anger>She was furious <cause>with me<\cause> . <\anger>
-<anger>At the hostel they were furious <cause>with us<\cause> for bringing the police , they just wanted us out , literally , and we were out ! <\anger>
+<anger>At the hostel they were furious, <cause>with us<\cause>, for bringing the police , they just wanted us out , literally , and we were out ! <\anger>
 <anger>He was furious <cause>with me<\cause> for ringing him . <\anger>
-<anger>Furuseth was furious <cause>with himself<\cause> . <\anger>
-<anger>US banks , which also lost heavily , were furious <cause>with the Bundesbank<\cause> for refusing to compensate them . <\anger>
-<anger>Conner is still furious <cause>about losing Tuesday 's protest<\cause> . <\anger>
-<anger>She would be doubly furious <cause>at having been deceived in exactly the same way by two successive men<\cause> . <\anger>
-<anger>The king was furious <cause>at being tricked again<\cause> , and by nothing more than a pair of animals , at that . <\anger>
+<anger>Furuseth was furious, <cause>with himself<\cause> . <\anger>
+<anger>US banks , which also lost heavily , were furious, <cause>with the Bundesbank<\cause> for refusing to compensate them . <\anger>
+<anger>Conner is still furious, <cause>about losing Tuesday 's protest<\cause> . <\anger>
+<anger>She would be doubly furious, <cause>at having been deceived in exactly the same way by two successive men<\cause> . <\anger>
+<anger>The king was furious, <cause>at being tricked again<\cause> , and by nothing more than a pair of animals , at that . <\anger>
 <anger>He was incensed , stunned , <cause>at her action<\cause> , and stood rigid with anger as he felt the slime roll down his cheek . <\anger>
-<anger>A gang of local ruffians was passing by and , when they saw what was happening , became infuriated <cause>against Richard Baxter<\cause> . <\anger>
-<anger>I go along and watch women 's football and get really infuriated <cause>to see a man out there refereeing the game , and often in a very condescending manner<\cause> ! <\anger>
-<anger>The sources said he is infuriated <cause>with her<\cause> after a row that erupted last week , and is likely to distance himself from her . <\anger>
-<anger>I was suddenly infuriated <cause>at the thought of what we had believed about the Germans in England<\cause> . <\anger>
-<anger>I was even more infuriated <cause>to read that their short separation was a ` tragedy "<\cause> . <\anger>
+<anger>A gang of local ruffians was passing by and , when they saw what was happening , became infuriated, <cause>against Richard Baxter<\cause> . <\anger>
+<anger>I go along and watch women 's football and get really infuriated, <cause>to see a man out there refereeing the game , and often in a very condescending manner<\cause> ! <\anger>
+<anger>The sources said he is infuriated, <cause>with her<\cause>, after a row that erupted last week , and is likely to distance himself from her . <\anger>
+<anger>I was suddenly infuriated, <cause>at the thought of what we had believed about the Germans in England<\cause> . <\anger>
+<anger>I was even more infuriated, <cause>to read that their short separation was a ` tragedy "<\cause> . <\anger>
 <anger>And while she sounded sympathetic , she was in reality infuriated <cause>with Doreen<\cause> . <\anger>
-<anger>His teachers were suspicious of his popularity , annoyed by his lack of interest in academic work and infuriated <cause>that he could still achieve high marks in examinations<\cause> . <\anger>
-<anger>I am spell-bound by the sound of French , infuriated <cause>when I ca n't read it in the books I am given<\cause> . <\anger>
-<anger>` Then you can do so today -- at the barbecue , " Lucy hissed , suddenly infuriated <cause>with them both<\cause> , although more so with Silas than with Doreen . <\anger>
-<anger>` I 'm infuriated <cause>with myself<\cause> , " he gritted from behind clenched teeth , his scowl deepening . <\anger>
-<anger>Mrs Rosenbloom nearly always found out about it and she would be mad <cause>that he had taken me from my work with the children<\cause> . <\anger>
-<anger>They must be mad <cause>that they should expect such a delicate business as his preparation of Vologsky to be speeded up as though it was a crude operation on a factory bench<\cause> . <\anger>
-<anger>Gazza was blazing mad <cause>that his training ground ` discussion " had been mis-interpreted as a bust-up<\cause> . <\anger>
-<anger>` Jane , my darling , it 's not because she 's mad <cause>that I hate her<\cause> . <\anger>
-<anger>In fact I expect he 'll be mad <cause>I 've told you that much<\cause> . " <\anger>
-<anger> He gets mad w<cause>hen Gary does n't sleep <\cause>, he says it 's my fault , he says I make him do it  and   She stopped again . <\anger>
-<anger>` I was so mad <cause>when your father tried to twist my arm<\cause> . <\anger>
-<anger>I was mad <cause>about her being killed<\cause> , mad at whoever killed her . <\anger>
-<anger>Philip was mad <cause>at himself<\cause> for not taking the cutters off the boy . <\anger>
-<anger>He says old Plumpton gets mad <cause>at them<\cause> . <\anger>
-<anger>He must be pretty mad <cause>at her<\cause> for not being at home when they arrived . <\anger>
-<anger>` You 've got every right to be mad <cause>at me<\cause> , Mike . <\anger>
-<anger>And I 'm mad <cause>at you<\cause> , you 've no ambition . <\anger>
-<anger>The other day he slapped Liam across the face and got mad <cause>at me<\cause> when I complained . <\anger>
-<anger>She was still mad <cause>at Lucy<\cause> for something , and Lucy was sure that a little time and concentration would tell her what  but for the moment , somehow , the knowledge was just out of reach . <\anger>
-<anger>` I thought perhaps you were still mad <cause>at me<\cause> . " <\anger>
-<anger>` Because she still sounded mad <cause>at me<\cause> , and I thought you might try to dissuade me . <\anger>
-<anger>If my Mam got mad <cause>with me<\cause> for something I 'd done -- or more often something I had n't done -- she used to make moaning noises and stagger about the house as if she was dying . <\anger>
-<anger>Jack was mad and even madder <cause>with the American scandal magazine the National Enquirer<\cause> , too , although that was nothing new . <\anger>
-<anger>Last night Mr Smith said : ` We are mad <cause>with this programme<\cause> , and especially with Barth . <\anger>
-<anger>Lucy knew she had to tell him something , so she said , ` She got mad <cause>with me<\cause> when I admitted you 'd taken me for two bush walks . <\anger>
-<anger>Hywel was glaring mad <cause>at having to put a suit on<\cause> . <\anger>
-<anger>Israel is also miffed <cause>by Kohl 's plan to visit the walled Old City of east Jerusalem without Mayor Ehud Olmert<\cause> .<\anger>
-<anger>One minister was miffed yesterday <cause>when he found his seat occupied by a journalist talking to a fellow cabinet member before the meeting began<\cause> .<\anger>
-<anger>Ev ans was miffed <cause>at the comments<\cause> and openly wondered why Bennett did n't show some respect .<\anger>
-<anger>The staunchly pro-monarchist Daily Telegraph said BBC chairman Marmaduke Hussey , whose wife is a lady-in-waiting to Queen Elizabeth II , is miffed <cause>that no one told him about the interview<\cause> .<\anger>
-<anger>Prosecutors were clearly miffed <cause>that several businessman changed the statements they had given during investigation of the case<\cause> .<\anger>
-<anger>Indonesian officials were somewhat miffed Friday <cause>when the mayor of Hanover , Herbert Schmalstieg , took the occasion of welcoming Suharto to lecture him about human rights violations in Indonesia<\cause> .<\anger>
-<anger>--- The descendants of Sir Isaac Newton are miffed <cause>that former prime minister Maragaret Thatcher has included the 17th century discoverer of gravity on her personal coat of arms , to represent learning<\cause> .<\anger>
-<anger>Stock investors were not miffed <cause>by the frantic currency markets<\cause> .<\anger>
-<anger>The rebel Serbs were miffed <cause>that Bildt planned no trip to their stronghold of Pale , east of Sarajevo<\cause> .<\anger>
-<anger>The rebels --- who want the government to recognize them as a legitimate force of change --- were miffed <cause>that the bill referred them in vague terms , such as `` dissenting groups in Chiapas<\cause> . ''<\anger>
+<anger>His teachers were suspicious of his popularity , annoyed by his lack of interest in academic work and infuriated, <cause>that he could still achieve high marks in examinations<\cause> . <\anger>
+<anger>I am spell-bound by the sound of French , infuriated, <cause>when I ca n't read it in the books I am given<\cause> . <\anger>
+<anger>` Then you can do so today -- at the barbecue , " Lucy hissed , suddenly infuriated, <cause>with them both<\cause> , although more so with Silas than with Doreen . <\anger>
+<anger>` I 'm infuriated, <cause>with myself<\cause> , " he gritted from behind clenched teeth , his scowl deepening . <\anger>
+<anger>Mrs Rosenbloom nearly always found out about it and she would be mad, <cause>that he had taken me from my work with the children<\cause> . <\anger>
+<anger>They must be mad, <cause>that they should expect such a delicate business as his preparation of Vologsky to be speeded up as though it was a crude operation on a factory bench<\cause> . <\anger>
+<anger>Gazza was blazing mad, <cause>that his training ground ` discussion " had been mis-interpreted as a bust-up<\cause> . <\anger>
+<anger>` Jane , my darling , it 's not because she 's mad, <cause>that I hate her<\cause> . <\anger>
+<anger>In fact I expect he 'll be mad, <cause>I 've told you that much<\cause> . " <\anger>
+<anger> He gets mad, w<cause>hen Gary does n't sleep <\cause>, he says it 's my fault , he says I make him do it  and   She stopped again . <\anger>
+<anger>` I was so mad, <cause>when your father tried to twist my arm<\cause> . <\anger>
+<anger>I was mad, <cause>about her being killed<\cause> , mad at whoever killed her . <\anger>
+<anger>Philip was mad, <cause>at himself<\cause>, for not taking the cutters off the boy . <\anger>
+<anger>He says old Plumpton gets mad, <cause>at them<\cause> . <\anger>
+<anger>He must be pretty mad, <cause>at her<\cause>, for not being at home when they arrived . <\anger>
+<anger>` You 've got every right to be mad, <cause>at me<\cause> , Mike . <\anger>
+<anger>And I 'm mad, <cause>at you<\cause> , you 've no ambition . <\anger>
+<anger>The other day he slapped Liam across the face and got mad, <cause>at me<\cause>, when I complained . <\anger>
+<anger>She was still mad, <cause>at Lucy<\cause> for something , and Lucy was sure that a little time and concentration would tell her what  but for the moment , somehow , the knowledge was just out of reach . <\anger>
+<anger>` I thought perhaps you were still mad, <cause>at me<\cause> . " <\anger>
+<anger>` Because she still sounded mad, <cause>at me<\cause> , and I thought you might try to dissuade me . <\anger>
+<anger>If my Mam got mad, <cause>with me<\cause> for something I 'd done, -- or more often something I had n't done --, she used to make moaning noises and stagger about the house as if she was dying . <\anger>
+<anger>Jack was mad and even madder, <cause>with the American scandal magazine the National Enquirer<\cause> , too , although that was nothing new . <\anger>
+<anger>Last night Mr Smith said : ` We are mad, <cause>with this programme<\cause> , and especially with Barth . <\anger>
+<anger>Lucy knew she had to tell him something , so she said , ` She got mad, with me, when <cause> I admitted you 'd taken me for two bush walks </cause>. <\anger>
+<anger>Hywel was glaring mad, <cause>at having to put a suit on<\cause> . <\anger>
+<anger>Israel is also miffed, <cause>by Kohl 's plan to visit the walled Old City of east Jerusalem without Mayor Ehud Olmert<\cause> .<\anger>
+<anger>One minister was miffed yesterday, <cause>when he found his seat occupied by a journalist talking to a fellow cabinet member before the meeting began<\cause> .<\anger>
+<anger>Ev ans was miffed, <cause>at the comments<\cause>, and openly wondered why Bennett did n't show some respect .<\anger>
+<anger>The staunchly pro-monarchist Daily Telegraph said BBC chairman Marmaduke Hussey , whose wife is a lady-in-waiting to Queen Elizabeth II , is miffed, <cause>that no one told him about the interview<\cause> .<\anger>
+<anger>Prosecutors were clearly miffed, <cause>that several businessman changed the statements they had given during investigation of the case<\cause> .<\anger>
+<anger>Indonesian officials were somewhat miffed Friday, <cause>when the mayor of Hanover , Herbert Schmalstieg , took the occasion of welcoming Suharto to lecture him about human rights violations in Indonesia<\cause> .<\anger>
+<anger>--- The descendants of Sir Isaac Newton are miffed, <cause>that former prime minister Maragaret Thatcher has included the 17th century discoverer of gravity on her personal coat of arms , to represent learning<\cause> .<\anger>
+<anger>Stock investors were not miffed, <cause>by the frantic currency markets<\cause> .<\anger>
+<anger>The rebel Serbs were miffed, <cause>that Bildt planned no trip to their stronghold of Pale , east of Sarajevo<\cause> .<\anger>
+<anger>The rebels --- who want the government to recognize them as a legitimate force of change --- were miffed, <cause>that the bill referred them in vague terms , such as `` dissenting groups in Chiapas<\cause> . ''<\anger>
 <anger>The Chinese president was said to be miffed <cause>when the administration refused his request for a state visit at the White House<\cause> , complete with star-spangled welcoming ceremonies and a black-tie dinner .<\anger>
 <anger>HELSINKI , Finland ( AP ) --- A Finnish orchestra on Friday completed recording a work by composer Jean Sibelius that vanished a century ago because he was miffed <cause>by criticism<\cause> .<\anger>
 <anger>Walter Matthau and Jack Lemmon get miffed <cause>because her establishment will replace two of their favorite hang-outs<\cause> .<\anger>
@@ -597,7 +597,7 @@
 <anger>Jess felt faintly indignant <cause>at the remark<\cause> . <\anger>
 <anger>I felt indignant <cause>at this casual assumption<\cause> . <\anger>
 <anger>At first Anne felt indignant <cause>with Joe<\cause> , but when she thought it over , realised the good sense of his warning . <\anger>
-<anger>The waitress returns , now indignant <cause>with her boss<\cause> for his bought-and-paid-for apathy . <\anger>
+<anger>The waitress returns , now indignant, <cause>with her boss<\cause>, for his bought-and-paid-for apathy . <\anger>
 <anger>By now the priest was becoming exasperated <cause>with the child<\cause> who in turn was becoming ever more stubborn by the minute . <\anger>
 <anger>There was a woman who wanted me to call her mother , and then called me awkward , exasperated and frightened <cause>with the dreams and the screams<\cause> . <\anger>
 <anger>` There is exasperation <cause>that it is taking so long<\cause> . <\anger>
