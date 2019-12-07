@@ -10,7 +10,7 @@ class InterECModel(tf.keras.Model):
     emotion clauses, or neither.
     """
     def __init__(self, vocab_size):
-        super(Model, self).__init__()
+        super(InterECModel, self).__init__()
         self.vocab_size = vocab_size
         self.embedding_size = 200
         self.batch_size = 32
@@ -32,12 +32,18 @@ class InterECModel(tf.keras.Model):
 
     def call(self, clauses):
         embedding = self.embed(clauses)
-        lower = self.attention(self.lower_biLSTM(embedding))
 
-        emotion_seq, _, _  = self.emotion_biLSTM(lower)
+        inputs = self.lower_biLSTM(embedding)[0]
+
+        lower = self.attention([inputs, inputs ,inputs])
+        lower += inputs
+
+        print(lower.shape)
+
+        emotion_seq = self.emotion_biLSTM(lower)[0]
         emotion_probs = self.emotion_dense(emotion_seq)
 
-        cause_seq, _, _ = self.cause_biLSTM(lower)
+        cause_seq = self.cause_biLSTM(lower)[0]
         cause_probs = self.cause_dense(cause_seq)
 
         return emotion_probs, cause_probs
