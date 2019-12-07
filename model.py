@@ -41,7 +41,12 @@ class InterECModel(tf.keras.Model):
         cause_probs = self.cause_dense(cause_seq)
 
         return emotion_probs, cause_probs
-
+    
+    # get the embeddings of the clauses from the embedding layer
+    # this will be used for the logistic regression
+    def get_embeddings(self, clauses):
+        return self.embed(clauses)
+    
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha=1/2):
         cause_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(cause_labels, cause_probabilities))
         emotion_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(emotion_labels, emotion_probabilities))
