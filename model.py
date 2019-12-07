@@ -19,7 +19,7 @@ class InterECModel(tf.keras.Model):
 
         self.optimizer = tf.keras.optimizers.Adam(learning_rate=0.005)
 
-        self.E = tf.Variable(tf.random.truncated_normal([self.vocab_size, self.embedding_size], stddev=0.1))
+        self.embed = tf.keras.layers.Embedding(vocab_size, self.embedding_size)
         self.lower_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_sequences=True, return_state=True))
         self.attention = tf.keras.layers.Attention()
 
@@ -31,8 +31,7 @@ class InterECModel(tf.keras.Model):
 
 
     def call(self, clauses):
-        embedding = tf.nn.embedding_lookup(self.E, clauses)
-        # TODO: Finish writing model architecture!
+        embedding = self.embed(clauses)
         lower = self.attention(self.lower_biLSTM(embedding))
 
         emotion_seq, _, _  = self.emotion_biLSTM(lower)
