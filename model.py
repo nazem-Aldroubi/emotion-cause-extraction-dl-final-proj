@@ -61,6 +61,7 @@ class InterECModel(tf.keras.Model):
             with tf.GradientTape() as tape:
                 cause_probabilities, emotion_probabilities = self.call(batch_clauses)
                 loss = self.loss(cause_probabilities, batch_cause_labels, emotion_probabilities, batch_emotion_labels, 0.5)
+                print("LOSS: ", loss)
 
             gradients = tape.gradient(loss, self.trainable_variables)
             self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
@@ -134,8 +135,7 @@ def main():
 
     ec_extract_model = InterECModel(len(word2id))
     # TODO: Train (and test) InterECModel.
-    emotion_l, cause_l = ec_extract_model.call(train_clauses)
-
+    ec_extract_model.train(train_clauses, train_cause_labels, train_emotion_labels)
 
     # TODO: Obtain emotion clauses and cause clauses extracted from the InterECModel.
 
