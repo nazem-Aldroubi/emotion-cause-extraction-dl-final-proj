@@ -165,6 +165,58 @@ class PairFilterModel():
         test_X = test_X.numpy()
         return self.model.predict_proba(test_X)
 
+class NetworkFilterModel(tf.keras.Model):
+    def __init__(self):
+        super(NetworkFilterModel, self).__init__()
+        self.batch_size = 5
+        self.dense = tf.keras.layers.Dense(1, activation="sigmoid")
+        self.optimizer = tf.keras.optimizers.Adam(learning_rate = 1e-4)
+
+    def call(self, inputs):
+        return self.dense(inputs)
+    
+    def loss(self, labels, pred):
+        return tf.reduce_mean(tf.keras.losses.binary_crossentropy(labels, pred))
+
+    def train(self, train_inputs, train_labels):
+        current_start = 0
+        num_samples = train_inputs.shape[0]
+        while current_start + self.batch_size < num_samples:
+            current_batch = train_inputs[current_start:current_start + self.batch_size]
+            current_labels = train_labels[current_start:current_start + self.batch_size]
+
+            with tf.GradientTape() as t:
+                batch_pred = self.call(current_batch)
+                batch_loss = self.loss(current_labels, batch_pred)
+                print(batch_loss)
+            gradients = t.gradient(batch_loss, self.trainable_variables)
+            self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
+
+            current_start += self.batch_size
+    
+    def test(self, test_inputs):
+        return self.call(test_inputs)
+
+    def get_cartesian_products(self, embedding_model, emotion_clauses, cause_clauses, pair_dict):
+        """
+        Given the set of emotion clauses and the set of cause clauses, obtain the embeddings from the embedding model
+        Then produce the Cartesian product of both the clauses and their embeddings
+        """
+        emotion_embeddings = embedding_model.get_embeddings(emotion_clauses).numpy()
+        emotion_embeddings = emotion_embeddings.reshape((emotion_embeddings.shape[0], -1))
+        cause_embeddings = embedding_model.get_embeddings(cause_clauses).numpy()
+        cause_embeddings = cause_embeddings.reshape((cause_embeddings.shape[0], -1))
+        if cause_embeddings.shape[0] == 0 or emotion_embeddings.shape[0] == 0:
+            return np.array([]), np.array([])
+        embedding_pairs = np.array([[np.append(e, c) for c in cause_embeddings] for e in emotion_embeddings])
+        label_pairs = np.array([[([e,c] in pair_dict) for c in cause_clauses] for e in emotion_clauses])
+        embedding_pairs = embedding_pairs.reshape((-1, embedding_pairs.shape[-1]))
+        label_pairs = label_pairs.reshape((-1))
+
+        return embedding_pairs, label_pairs
+
+
+    
 def main():
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
     train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
@@ -181,6 +233,27 @@ def main():
     # TODO: Instantiate PairFilterModel.
 
     # TODO: Train (and test) PairFilterModel.
+    
+    """
+    # Train the EC Model
+    ec_extract_model = InterECModel(len(word2id))
+    ec_extract_model.train(train_clauses, train_cause_labels, train_emotion_labels)
+    emotion_prob, cause_prob = ec_extract_model.call(train_clauses)
 
+    # Extract clauses
+    emotion_clauses = ec_extract_model.get_clauses(train_clauses, emotion_prob)
+    cause_clauses = ec_extract_model.get_clauses(train_clauses, cause_prob)
+    
+    print(len(train_clauses))
+    print(len(emotion_clauses))
+    print(len(cause_clauses))
+
+    # Create filter model
+    pair_filter_model = NetworkFilterModel()
+    # Create labels for pairs
+    embedding_pairs, label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, emotion_clauses, cause_clauses, train_emotion_cause_pairs)
+    # Train the logistic model
+    pair_filter_model.train(embedding_pairs, label_pairs)
+    """
 if __name__ == '__main__':
     main()
