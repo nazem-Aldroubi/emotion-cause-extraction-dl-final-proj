@@ -30,7 +30,7 @@
 <happy>Trying to hide her enormous delight  , <cause>in his return<\cause> , Juliet turned to David . <\happy>
 <happy>` Estelle 's delight  , <cause>in Thomas<\cause> made your mother very happy , " Ashley recalled , her head resting against his chest . <\happy>
 <happy>She cackled and slapped her knees , bent double and wheezing with delight  , <cause>at her own witticisms<\cause> . <\happy>
-<happy>My delight  , <cause>at everything I saw<\cause> was beyond bounds  gardens were allotted my sister and self  there was the canal to fish in  a pony to ride  besides animals of different kinds <\happy>
+<happy>My delight  , <cause>at everything I saw<\cause> , was beyond bounds  gardens were allotted my sister and self : there was the canal to fish in ,  and a pony to ride  besides animals of different kinds <\happy>
 <happy>They were astonished to see the penguin , and swooped low to call out with delight  , <cause>at her sleek feathers and solid little body<\cause> . <\happy>
 <happy>The ANC , while expressing delight  , <cause>at their decision<\cause> , nevertheless continued to call for the dissolution of the tricameral parliament , which it regarded as essentially racist . <\happy>
 <happy>Her stumbling repetition masked a growing delight  , <cause>at his basic error<\cause> . <\happy>
@@ -69,7 +69,7 @@
 <happy>Whether or not the Palace actually arranged for the drawing to be removed , there can be little doubt that they were delighted  , <cause>to be rid of it<\cause> . <\happy>
 <happy>` I am delighted  , <cause>that you are so cheerful and optimistic<\cause> . <\happy>
 <happy>On the other hand , she suspected that Fowler-Thrown would be delighted  , <cause>to have a private view of Newley 's collection<\cause> . <\happy>
-<happy>Obviously , staff will be delighted  , <cause>that the appointment of a new Director has been made<\cause> and sad that Tom has gone but it is the proposed reorganisation which will occupy the minds of most staff . <\happy>
+<happy>Obviously , staff will be delighted  , <cause>that the appointment of a new Director has been made<\cause> , and sad that Tom has gone but it is the proposed reorganisation which will occupy the minds of most staff . <\happy>
 <happy>I was delighted  , <cause>to see the photograph of the staff from Department One , published in the January/February issue of Wimpey News<\cause> . <\happy>
 <happy>They were delighted  , <cause>with the turnout of spectators and the general organisations by local authorities<\cause> . <\happy>
 <happy>` We are delighted  , <cause>to help the museum extend its collection<\cause> , " said Mr Watson . <\happy>
@@ -384,7 +384,7 @@
 <disgust>However , I quite enjoyed describing the horrors of my creation , and shared with Edward Young , the architect , his revulsion  , <cause>for the hideous house<\cause> , covered in peeling stucco , as chilling within as without . <\disgust>
 <disgust>He said he would be happy to lead the march planned for next Sunday ` to show the city 's revulsion  , <cause>for terrorism<\cause> . " <\disgust>
 <disgust>But equally , it provided a home for some of the darkest forms of distrust of and revulsion  , <cause>from sex and marriage<\cause> . <\disgust>
-<disgust>This ` instinctive revulsion  , <cause>from regulation<\cause> " is the foundation of his libertarian heritage and it gives rise to a particular vision of how broadcasting should develop and what its purposes should be . <\disgust>
+<disgust>This ` instinctive revulsion  , <cause>from regulation<\cause> " , is the foundation of his libertarian heritage , and it gives rise to a particular vision of how broadcasting should develop , and what its purposes should be . <\disgust>
 <disgust>It is unfortunate that such considerations may be thrust out of view by continuing public -- and perhaps personal -- revulsion  , <cause>towards the concept of child sexuality<\cause> . <\disgust>
 <disgust>There was , as yet , no significant revulsion amongst the general public  , <cause>towards the use of nuclear weapons to save manpower<\cause> . <\disgust>
 <disgust>Nell swallowed down the revulsion  , <cause>of the word normal<\cause> . <\disgust>
@@ -393,7 +393,7 @@
 <disgust>Revulsion  , <cause>at what has been happening there<\cause> is not a prerogative of the politically correct . <\disgust>
 <disgust>If so , he would undo her revulsion  , <cause>with tonight 's business<\cause> . <\disgust>
 <disgust>Such side-effects seem to be becoming increasingly common these days , and many patients are becoming disgruntled  , <cause>with these drugs<\cause> and are seeking safer alternatives . <\disgust>
-<disgust>We were feeling rather disgruntled  , <cause>at how many good films we 'd obviously missed<\cause> when a man came on to the stage to read the nominations for one of the categories . <\disgust>
+<disgust>We were feeling rather disgruntled  , <cause>at how many good films we 'd obviously missed , <\cause> when a man came on to the stage to read the nominations for one of the categories . <\disgust>
 <disgust>He looked disgruntled  , <cause>to see Harbury<\cause> , despite Eliot 's explanation that he wanted Harbury to give what further help Shildon needed . <\disgust>
 <disgust>He could pretend she was a good housewife , cook and mother to other men who were disgruntled  , <cause>at their wives , brilliant careers<\cause> . <\disgust>
 <disgust>It linked the poor performance with the exodus to the West of more than 330,000 East Germans disgruntled  , <cause>with Communism<\cause> . <\disgust>
@@ -485,7 +485,7 @@
 <anger>` Then you can do so today -- at the barbecue , " Lucy hissed , suddenly infuriated  , <cause>with them both<\cause> , although more so with Silas than with Doreen . <\anger>
 <anger>` I 'm infuriated  , <cause>with myself<\cause> , " he gritted from behind clenched teeth , his scowl deepening . <\anger>
 <anger>Mrs Rosenbloom nearly always found out about it and she would be mad  , <cause>that he had taken me from my work with the children<\cause> . <\anger>
-<anger>They must be mad  , <cause>that they should expect such a delicate business as his preparation of Vologsky to be speeded up as though it was a crude operation on a factory bench<\cause> . <\anger>
+<anger>They must be mad  , <cause>that they expect a delicate business to be speeded up as though it was a crude factory bench operation<\cause> . <\anger>
 <anger>Gazza was blazing mad  , <cause>that his training ground ` discussion " had been mis-interpreted as a bust-up<\cause> . <\anger>
 <anger>` Jane , my darling , it 's not because she 's mad  , <cause>that I hate her<\cause> . <\anger>
 <anger>In fact I expect he 'll be mad  , <cause>I 've told you that much<\cause> . " <\anger>
@@ -501,7 +501,7 @@
 <anger>She was still mad  , <cause>at Lucy<\cause> for something , and Lucy was sure that a little time and concentration would tell her what  but for the moment , somehow , the knowledge was just out of reach . <\anger>
 <anger>` I thought perhaps you were still mad  , <cause>at me<\cause> . " <\anger>
 <anger>` Because she still sounded mad  , <cause>at me<\cause> , and I thought you might try to dissuade me . <\anger>
-<anger>If my Mam got mad  , <cause>with me<\cause> for something I 'd done -- or more often something I had n't done -- she used to make moaning noises and stagger about the house as if she was dying . <\anger>
+<anger>If my Mam got mad  , <cause>with me for something I 'd done</cause> , -- or more often something I had n't done -- , she used to make moaning noises and stagger about the house as if she was dying . <\anger>
 <anger>Jack was mad and even madder  , <cause>with the American scandal magazine the National Enquirer<\cause> , too , although that was nothing new . <\anger>
 <anger>Last night Mr Smith said : ` We are mad  , <cause>with this programme<\cause> , and especially with Barth . <\anger>
 <anger>Lucy knew she had to tell him something , so she said , ` She got mad  , <cause>with me<\cause> when I admitted you 'd taken me for two bush walks . <\anger>
