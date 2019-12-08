@@ -215,7 +215,24 @@ class NetworkFilterModel(tf.keras.Model):
 
         return embedding_pairs, label_pairs
 
+# return F1, recall, precision scores
+# inputs: labels, pred are 1d np arrays
+def scores(labels, pred):
+    true_positive = sum(np.logical_and((labels==1), (pred==1)))
+    true_negative = sum(np.logical_and((labels==0), (pred==0)))
+    false_positive = sum(np.logical_and((labels==0), (pred==1)))
+    false_negative = sum(np.logical_and((labels==1), (pred==0)))
 
+    # precision represents the correct percentage of all positive predicitions
+    precision = true_positive / (true_positive + false_positive)
+    # recall represents how well we can predict results that should be positive
+    recall = true_positive / (true_positive + false_negative)
+
+    # f1 is the harmonic mean of precision and recall
+    # intuitively, it represents the quality of how well we should trust a prediction that's positive
+    f1 = 2 * (precision * recall) / (precision + recall)
+
+    return precision, recall, f1
     
 def main():
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
