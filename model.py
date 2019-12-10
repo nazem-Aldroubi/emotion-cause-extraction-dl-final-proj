@@ -1,6 +1,13 @@
 import tensorflow as tf
 import numpy as np
 from preprocess import get_data
+import os
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--mode', type=str, default='test',
+                    help='Can be "train" or "test"')
+args = parser.parse_args()
 
 class ECModel(tf.keras.Model):
     """
@@ -23,28 +30,26 @@ class ECModel(tf.keras.Model):
         self.lower_model.add(tf.keras.layers.Embedding(vocab_size, self.embedding_size, input_length=clause_size))
 
         self.attention = tf.keras.layers.Attention()
+        
+        self.emotion_model = tf.keras.Sequential()
+        self.emotion_model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size)))
+        self.emotion_model.add(tf.keras.layers.Flatten())
+        self.emotion_model.add(tf.keras.layers.Dense(self.hidden_layer_size, activation='relu'))
+        self.emotion_model.add(tf.keras.layers.Dense(self.num_classes, activation='sigmoid'))
 
-        self.emotion_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_state=True, return_sequences=True))
-        self.emotion_dense_1 = tf.keras.layers.Dense(self.hidden_layer_size, activation='relu')
-        self.emotion_dense_2 = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
+        self.cause_model = tf.keras.Sequential()
+        self.cause_model.add(tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size)))
+        self.cause_model.add(tf.keras.layers.Flatten())
+        self.cause_model.add(tf.keras.layers.Dense(self.hidden_layer_size, activation='relu'))
+        self.cause_model.add(tf.keras.layers.Dense(self.num_classes, activation='sigmoid'))
 
-        self.cause_biLSTM = tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(self.rnn_size, return_state=True, return_sequences=True))
-        self.cause_dense_1 = tf.keras.layers.Dense(self.hidden_layer_size, activation='relu')
-        self.cause_dense_2 = tf.keras.layers.Dense(self.num_classes, activation='sigmoid')
-
-        self.flatten = tf.keras.layers.Flatten()
 
     def call(self, clauses):
         lower_output = self.lower_model(clauses)
         lower_output = self.attention([lower_output, lower_output, lower_output])
 
-        emotion_seq = self.emotion_biLSTM(lower_output)[0]
-        emotion_seq = self.flatten(emotion_seq)
-        emotion_probs = self.emotion_dense_2(self.emotion_dense_1(emotion_seq))
-
-        cause_seq = self.cause_biLSTM(lower_output)[0]
-        cause_seq = self.flatten(cause_seq)
-        cause_probs = self.cause_dense_2(self.cause_dense_1(cause_seq))
+        emotion_probs = self.emotion_model(lower_output)
+        cause_probs = self.cause_model(lower_output)
 
         return emotion_probs, cause_probs 
     
@@ -78,13 +83,19 @@ class ECModel(tf.keras.Model):
             batch_cause_labels = train_cause_labels[start_index:end_index]
             batch_emotion_labels = train_emotion_labels[start_index:end_index]
 
-            with tf.GradientTape() as tape:
+            with tf.GradientTape(persistent=True) as tape:
                 emotion_probabilities, cause_probabilities = self.call(batch_clauses)
                 loss = self.loss(cause_probabilities, batch_cause_labels, emotion_probabilities, batch_emotion_labels, 0.5)
                 print("LOSS: ", loss)
             
-            gradients = tape.gradient(loss, self.trainable_variables)
-            self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
+            emotion_trainable_variables = self.lower_model.trainable_variables + self.attention.trainable_variables + self.emotion_model.trainable_variables
+            cause_trainable_variables = self.lower_model.trainable_variables + self.attention.trainable_variables + self.cause_model.trainable_variables
+
+            emotion_gradients = tape.gradient(loss, emotion_trainable_variables)
+            cause_gradients = tape.gradient(loss, cause_trainable_variables)
+
+            self.optimizer.apply_gradients(zip(emotion_gradients, emotion_trainable_variables))
+            self.optimizer.apply_gradients(zip(cause_gradients, cause_trainable_variables))
 
             start_index = end_index
             end_index = start_index + self.batch_size
@@ -115,12 +126,13 @@ class FilterModel(tf.keras.Model):
         super(FilterModel, self).__init__()
         self.batch_size = 1
         self.hidden_layer_size = 100
-        self.dense_1 = tf.keras.layers.Dense(self.hidden_layer_size)
-        self.dense_2 = tf.keras.layers.Dense(1, activation="sigmoid")
-        self.optimizer = tf.keras.optimizers.Adam(learning_rate = 1e-4)
+        self.dense_1 = tf.keras.layers.Dense(self.hidden_layer_size, activation="relu")
+        self.dense_2 = tf.keras.layers.Dense(self.hidden_layer_size, activation="relu")
+        self.dense_3 = tf.keras.layers.Dense(1, activation="sigmoid")
+        self.optimizer = tf.keras.optimizers.Adam(learning_rate = 0.0001)
 
     def call(self, inputs):
-        return self.dense_2(self.dense_1(inputs))
+        return self.dense_3(self.dense_2(self.dense_1(inputs)))
     
     def loss(self, labels, pred):
         return tf.reduce_mean(tf.keras.losses.binary_crossentropy(labels, pred))
@@ -128,14 +140,14 @@ class FilterModel(tf.keras.Model):
     def train(self, train_inputs, train_labels):
         current_start = 0
         num_samples = train_inputs.shape[0]
-        while current_start + self.batch_size < num_samples:
+        while current_start + self.batch_size <= num_samples:
             current_batch = train_inputs[current_start:current_start + self.batch_size]
             current_labels = train_labels[current_start:current_start + self.batch_size]
 
             with tf.GradientTape() as t:
                 batch_pred = self.call(current_batch)
                 batch_loss = self.loss(current_labels, batch_pred)
-                print(batch_loss)
+                #print(batch_loss)
             gradients = t.gradient(batch_loss, self.trainable_variables)
             self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 
@@ -173,7 +185,11 @@ def get_labels(probs):
     Get the binary labels for clauses given probabilities.
     """
     data = probs.numpy()
-    return (data > 1/2)
+    labels = np.zeros(data.shape)
+    for i in range(labels.shape[0]):
+        for j in range(labels.shape[1]):
+            labels[i][j] = np.random.choice(2, 1, p=[1-data[i][j], data[i][j]])
+    return labels
 
 # return F1, recall, precision scores
 # inputs: labels, pred are 1d np arrays
@@ -207,48 +223,83 @@ def main():
     test_emotion_cause_pairs, word2id, pad_index, clause_size = get_data("data.txt")
     
     ec_extract_model = ECModel(len(word2id), clause_size)
+
     # Train ECModel.
-    num_epochs = 1
+    num_epochs = 5
 
-    # This block of code is to test very small batches to make sure the model is learning.
-    num_examples = 5
-    train_clauses = train_clauses[:num_examples]
-    train_emotion_labels = train_emotion_labels[:num_examples]
-    train_cause_labels = train_cause_labels[:num_examples]
-    num_epochs = 10
-    # Test block ends here.
+    # For saving/loading models
+    checkpoint_dir = './checkpoints'
+    checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
+    checkpoint = tf.train.Checkpoint(ec_extract_model=ec_extract_model)
+    manager = tf.train.CheckpointManager(checkpoint, checkpoint_dir, max_to_keep=3)
 
-    for e in range(num_epochs):
-        ec_extract_model.train(train_clauses, train_cause_labels, train_emotion_labels)
-
+    checkpoint.restore(manager.latest_checkpoint)
+    
+    if args.mode == "train":
+        for e in range(num_epochs):
+            print("EPOCH: ", e)
+            ec_extract_model.train(train_clauses, train_cause_labels, train_emotion_labels)
+        manager.save()
+ 
     # Test ECModel.
-    emotion_probs, cause_probs = ec_extract_model.call(train_clauses)
+    num_examples = 30
+    train_clauses = train_clauses[:num_examples]
+    test_clauses = test_clauses[:num_examples]
+    train_emotion_probs, train_cause_probs = ec_extract_model.call(train_clauses)
+    test_emotion_probs, test_cause_probs = ec_extract_model.call(test_clauses)
+    
+    """
+    print("TRAIN EMOTION PROBS: ", train_emotion_probs)
+    print("TRAIN CAUSE PROBS: ", train_cause_probs)
+    print("TRAIN EMOTION LABELS: ", train_emotion_labels)
+    print("TRAIN CAUSE LABELS: ", train_cause_labels)
+    print("TEST EMOTION PROBS: ", test_emotion_probs)
+    print("TEST EMOTION LABELS: ", test_emotion_labels)
+    print("TEST CAUSE PROBS: ", test_cause_probs)
+    print("TEST CAUSE LABELS: ", test_cause_labels)
+    """
 
     # Extract emotion and cause clauses.
-    emotion_clauses = ec_extract_model.get_likely_clauses(train_clauses, emotion_probs)
-    cause_clauses = ec_extract_model.get_likely_clauses(train_clauses, cause_probs)
+    train_emotion_clauses = ec_extract_model.get_likely_clauses(train_clauses, train_emotion_probs)
+    train_cause_clauses = ec_extract_model.get_likely_clauses(train_clauses, train_cause_probs)
 
     print("NUMBER OF TRAIN CLAUSES: ", train_clauses.shape)
-    print("NUMBER OF EXTRACTED EMOTION CLAUSES: ", emotion_clauses.shape)
-    print("NUMBER OF EXTRACTED CAUSE CLAUSES: ", cause_clauses.shape)
+    print("NUMBER OF EXTRACTED TRAIN EMOTION CLAUSES: ", train_emotion_clauses.shape)
+    print("NUMBER OF EXTRACTED TRAIN CAUSE CLAUSES: ", train_cause_clauses.shape)
+    
+    test_emotion_clauses = ec_extract_model.get_likely_clauses(test_clauses, test_emotion_probs)
+    test_cause_clauses = ec_extract_model.get_likely_clauses(test_clauses, test_cause_probs)
+
+    print("NUMBER OF TEST CLAUSES: ", test_clauses.shape)
+    print("NUMBER OF EXTRACTED TEST EMOTION CLAUSES: ", test_emotion_clauses.shape)
+    print("NUMBER OF EXTRACTED TEST CAUSE CLAUSES: ", test_cause_clauses.shape)
 
     # Create filter model.
     pair_filter_model = FilterModel()
 
     # Apply Cartesian product to set of emotion clauses and set of cause clauses to obtain all possible pairs.
-    embedding_pairs, label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, emotion_clauses, cause_clauses, train_emotion_cause_pairs)
+    train_embedding_pairs, train_label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, train_emotion_clauses, train_cause_clauses, train_emotion_cause_pairs)
+    test_embedding_pairs, test_label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, test_emotion_clauses, test_cause_clauses, test_emotion_cause_pairs)
 
     # Train filter model.
+    num_epochs = 25
     for e in range(num_epochs):
-        pair_filter_model.train(embedding_pairs, label_pairs)
+        print("EPOCH ", e)
+        pair_filter_model.train(train_embedding_pairs, train_label_pairs)
     
     # Test filter model.
-    pair_probs = pair_filter_model.call(embedding_pairs) 
-    predicted_label_pairs = np.squeeze(get_labels(pair_probs))
+    train_pair_probs = pair_filter_model.call(train_embedding_pairs) 
+    train_predicted_label_pairs = np.squeeze(get_labels(train_pair_probs))
+
+    test_pair_probs = pair_filter_model.call(test_embedding_pairs)
+    test_predicted_label_pairs = np.squeeze(get_labels(test_pair_probs))
 
     # Calculate F1 Score.
-    f1_score = scores(label_pairs, predicted_label_pairs)
-    print("F1 Score: ", f1_score)
+    train_f1_score = scores(train_label_pairs, train_predicted_label_pairs)
+    print("Train F1 Score: ", train_f1_score)
+
+    test_f1_score = scores(test_label_pairs, test_predicted_label_pairs)
+    print("Test F1 Score: ", test_f1_score)
 
 if __name__ == '__main__':
     main()
