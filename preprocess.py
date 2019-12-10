@@ -1,6 +1,4 @@
 import numpy as np
-import tensorflow as tf
-import numpy as np
 import operator
 from collections import defaultdict
 import re
@@ -35,7 +33,7 @@ def extract_clauses_and_labels(text, emotion_seeds):
     emotion_cause_pairs = []
 
     for i, line in enumerate(text):
-        clauses = re.split("[.,!;:]+", line)
+        clauses = re.split("[.,!;:\"]+", line)
         emotion_clauses = []
         cause_clauses = []
 
@@ -167,7 +165,7 @@ def get_padding_size(clauses):
     for clause in clauses:
         if len(clause) > max_length:
             max_length = len(clause)
-    
+
     return max_length
 
 def pad_corpus(sentences, padding_size):
@@ -275,7 +273,7 @@ def get_data(file_name):
     num_train_sentences = int(train_split*num_sentences)
     train_text = text[:num_train_sentences]
     test_text = text[num_train_sentences:]
-    
+
     train_clauses, train_emotion_labels, train_cause_labels, train_emotion_cause_pairs = extract_clauses_and_labels(train_text, emotion_seeds)
     test_clauses, test_emotion_labels, test_cause_labels, test_emotion_cause_pairs = extract_clauses_and_labels(test_text, emotion_seeds)
 
@@ -292,12 +290,12 @@ def get_data(file_name):
 
     return train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
            train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
-           test_emotion_cause_pairs, word2id, pad_index
+           test_emotion_cause_pairs, word2id, pad_index, padding_size
 
 ################## MAIN INTERFACES #####################
 
 if __name__ == "__main__":
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
     train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
-    test_emotion_cause_pairs, word2id, pad_index = get_data("data.txt")
+    test_emotion_cause_pairs, word2id, pad_index, padding_size = get_data("data.txt")
 
