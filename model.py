@@ -45,6 +45,9 @@ class ECModel(tf.keras.Model):
 
 
     def call(self, clauses):
+        """
+        Calls the model on the input clauses.
+        """
         lower_output = self.lower_model(clauses)
         lower_output = self.attention([lower_output, lower_output, lower_output])
 
@@ -61,18 +64,24 @@ class ECModel(tf.keras.Model):
 
     def get_likely_clauses(self, clauses, probs):
         """
-        Get the clauses with greater than 50% probability of having label 1.
+        Get the clauses that are labeled as 1.
         """
         labels = np.squeeze(get_labels(probs))
         likely_indices = np.squeeze(np.argwhere(labels))
         return clauses[likely_indices].reshape((-1, self.clause_size))
 
     def loss(self, cause_probabilities, cause_labels, emotion_probabilities, emotion_labels, alpha=0.5):
+        """
+        Calculates loss as a weighted sum of the losses for cause classification and emotion classification.
+        """
         cause_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(cause_labels, cause_probabilities))
         emotion_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(emotion_labels, emotion_probabilities))
         return alpha*emotion_loss + (1 - alpha)*cause_loss
 
     def train(self, train_clauses, train_cause_labels, train_emotion_labels):
+        """
+        Trains the model.
+        """
         num_examples = train_clauses.shape[0]
 
         start_index = 0
@@ -86,7 +95,7 @@ class ECModel(tf.keras.Model):
             with tf.GradientTape(persistent=True) as tape:
                 emotion_probabilities, cause_probabilities = self.call(batch_clauses)
                 loss = self.loss(cause_probabilities, batch_cause_labels, emotion_probabilities, batch_emotion_labels, 0.5)
-                print("LOSS: ", loss)
+                # print("EC MODEL TRAIN LOSS: ", loss)
 
             emotion_trainable_variables = self.lower_model.trainable_variables + self.attention.trainable_variables + self.emotion_model.trainable_variables
             cause_trainable_variables = self.lower_model.trainable_variables + self.attention.trainable_variables + self.cause_model.trainable_variables
@@ -101,6 +110,9 @@ class ECModel(tf.keras.Model):
             end_index = start_index + self.batch_size
 
     def test(self, test_clauses, test_cause_labels, test_emotion_labels):
+        """
+        Tests the model. Returns the mean loss from the test data.
+        """
         num_examples = test_clauses.shape[0]
 
         start_index = 0
@@ -122,6 +134,10 @@ class ECModel(tf.keras.Model):
 
 
 class FilterModel(tf.keras.Model):
+    """
+    This model is a logistic regression model that filters emotion-cause pairs to obtain the valid pairs in which the cause
+    clauses correspond to the emotion clauses.
+    """
     def __init__(self):
         super(FilterModel, self).__init__()
         self.batch_size = 1
@@ -132,12 +148,21 @@ class FilterModel(tf.keras.Model):
         self.optimizer = tf.keras.optimizers.Adam(learning_rate = 0.0001)
 
     def call(self, inputs):
+        """
+        Calls the model on the input pairs.
+        """
         return self.dense_3(self.dense_2(self.dense_1(inputs)))
 
     def loss(self, labels, pred):
+        """
+        Calculates the binary cross entropy loss for valid pair classification.
+        """
         return tf.reduce_mean(tf.keras.losses.binary_crossentropy(labels, pred))
 
     def train(self, train_inputs, train_labels):
+        """
+        Train the model for the given input pairs, and binary labels (1 if the pair is valid, 0 otherwise).
+        """
         current_start = 0
         num_samples = train_inputs.shape[0]
         while current_start + self.batch_size <= num_samples:
@@ -147,19 +172,16 @@ class FilterModel(tf.keras.Model):
             with tf.GradientTape() as t:
                 batch_pred = self.call(current_batch)
                 batch_loss = self.loss(current_labels, batch_pred)
-                #print(batch_loss)
+                # print("Filter Model Train Loss: ", batch_loss)
             gradients = t.gradient(batch_loss, self.trainable_variables)
             self.optimizer.apply_gradients(zip(gradients, self.trainable_variables))
 
             current_start += self.batch_size
 
-    def test(self, test_inputs):
-        return self.call(test_inputs)
-
     def get_cartesian_products(self, embedding_model, emotion_clauses, cause_clauses, real_pairs):
         """
         Given the set of emotion clauses and the set of cause clauses, obtain the embeddings from the embedding model
-        Then produce the Cartesian product of both the clauses and their embeddings
+        Then produce the Cartesian product of both the clauses and their embeddings.
         """
         emotion_embeddings = embedding_model.get_embeddings(emotion_clauses).numpy()
         emotion_embeddings = emotion_embeddings.reshape((emotion_embeddings.shape[0], -1))
@@ -175,6 +197,10 @@ class FilterModel(tf.keras.Model):
         return embedding_pairs, label_pairs
 
     def is_real_pair(self, emotion_clause, cause_clause, real_pairs):
+        """
+        Returns a Boolean representing whether or not the given emotion-cause pair
+        is in the list of real emotion-cause pairs.
+        """
         for i in range(len(real_pairs)):
             if np.all(real_pairs[i] == [emotion_clause, cause_clause]):
                 return True
@@ -182,7 +208,8 @@ class FilterModel(tf.keras.Model):
 
 def get_labels(probs):
     """
-    Get the binary labels for clauses given probabilities.
+    Get the binary labels for inputs given probabilities. Samples a label (0/1)
+    based on the probability for each label, as computed by the model.
     """
     data = probs.numpy()
     labels = np.zeros(data.shape)
@@ -191,33 +218,32 @@ def get_labels(probs):
             labels[i][j] = np.random.choice(2, 1, p=[1-data[i][j], data[i][j]])
     return labels
 
-# return F1, recall, precision scores
-# inputs: labels, pred are 1d np arrays
 def scores(labels, pred):
-    print("LABELS: ", labels)
-    print("PRED: ", pred)
+    """
+    Calculates the precision, recall, and F1 scores.
+
+    :param labels: 1D np.array of actual labels.
+    :param pred: 1D np.array of predicted labels.
+    :return tuple of precision, recall, and F1 scores.
+    """
     true_positive = np.sum(np.logical_and((labels==1), (pred==1)))
     true_negative = np.sum(np.logical_and((labels==0), (pred==0)))
     false_positive = np.sum(np.logical_and((labels==0), (pred==1)))
     false_negative = np.sum(np.logical_and((labels==1), (pred==0)))
 
-    print("TRUE P: ", true_positive)
-    print("TRUE N: ", true_negative)
-    print("FALSE P: ", false_positive)
-    print("FALSE N: ", false_negative)
-
-    # precision represents the correct percentage of all positive predicitions
+    # Precision represents the correct percentage of all positive predicitions
     precision = true_positive / (true_positive + false_positive)
-    # recall represents how well we can predict results that should be positive
+    # Recall represents how well we can predict results that should be positive
     recall = true_positive / (true_positive + false_negative)
 
-    # f1 is the harmonic mean of precision and recall
+    # F1 is the harmonic mean of precision and recall
     # intuitively, it represents the quality of how well we should trust a prediction that's positive
     f1 = 2 * (precision * recall) / (precision + recall)
 
     return precision, recall, f1
 
 def main():
+    # Obtain preprocessed data.
     train_clauses, test_clauses, train_emotion_labels, test_emotion_labels, \
     train_cause_labels, test_cause_labels, train_emotion_cause_pairs, \
     test_emotion_cause_pairs, word2id, pad_index, clause_size = get_data("data.txt")
@@ -227,7 +253,7 @@ def main():
     # Train ECModel.
     num_epochs = 5
 
-    # For saving/loading models
+    # For saving/loading models.
     checkpoint_dir = './checkpoints'
     checkpoint_prefix = os.path.join(checkpoint_dir, "ckpt")
     checkpoint = tf.train.Checkpoint(ec_extract_model=ec_extract_model)
@@ -237,7 +263,7 @@ def main():
 
     if args.mode == "train":
         for e in range(num_epochs):
-            print("EPOCH: ", e)
+            print("EC MODEL EPOCH: ", e)
             ec_extract_model.train(train_clauses, train_cause_labels, train_emotion_labels)
         manager.save()
 
@@ -247,17 +273,6 @@ def main():
     test_clauses = test_clauses[:num_examples]
     train_emotion_probs, train_cause_probs = ec_extract_model.call(train_clauses)
     test_emotion_probs, test_cause_probs = ec_extract_model.call(test_clauses)
-
-    """
-    print("TRAIN EMOTION PROBS: ", train_emotion_probs)
-    print("TRAIN CAUSE PROBS: ", train_cause_probs)
-    print("TRAIN EMOTION LABELS: ", train_emotion_labels)
-    print("TRAIN CAUSE LABELS: ", train_cause_labels)
-    print("TEST EMOTION PROBS: ", test_emotion_probs)
-    print("TEST EMOTION LABELS: ", test_emotion_labels)
-    print("TEST CAUSE PROBS: ", test_cause_probs)
-    print("TEST CAUSE LABELS: ", test_cause_labels)
-    """
 
     # Extract emotion and cause clauses.
     train_emotion_clauses = ec_extract_model.get_likely_clauses(train_clauses, train_emotion_probs)
@@ -284,7 +299,7 @@ def main():
     # Train filter model.
     num_epochs = 25
     for e in range(num_epochs):
-        print("EPOCH ", e)
+        print("FILTER MODEL EPOCH ", e)
         pair_filter_model.train(train_embedding_pairs, train_label_pairs)
 
     # Test filter model.
