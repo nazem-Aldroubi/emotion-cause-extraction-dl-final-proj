@@ -249,7 +249,11 @@ def main():
     test_emotion_cause_pairs, word2id, pad_index, clause_size = get_data("data.txt")
 
     ec_extract_model = ECModel(len(word2id), clause_size)
-
+    train_emotion_labels = np.asarray(train_emotion_labels).astype('float32').reshape((-1,1))
+    test_emotion_labels = np.asarray(test_emotion_labels).astype('float32').reshape((-1,1))
+    train_cause_labels = np.asarray(train_cause_labels).astype('float32').reshape((-1,1))
+    test_cause_labels = np.asarray(test_cause_labels).astype('float32').reshape((-1,1))
+    
     # Train ECModel.
     num_epochs = 5
 
@@ -295,7 +299,9 @@ def main():
     # Apply Cartesian product to set of emotion clauses and set of cause clauses to obtain all possible pairs.
     train_embedding_pairs, train_label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, train_emotion_clauses, train_cause_clauses, train_emotion_cause_pairs)
     test_embedding_pairs, test_label_pairs = pair_filter_model.get_cartesian_products(ec_extract_model, test_emotion_clauses, test_cause_clauses, test_emotion_cause_pairs)
-
+    train_label_pairs = np.asarray(train_cause_labels).astype('float32').reshape((-1,1))
+    test_label_pairs = np.asarray(test_cause_labels).astype('float32').reshape((-1,1))
+    
     # Train filter model.
     num_epochs = 25
     for e in range(num_epochs):
